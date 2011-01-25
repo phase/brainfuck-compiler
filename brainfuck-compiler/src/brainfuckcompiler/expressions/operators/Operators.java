@@ -24,7 +24,7 @@ public class Operators
         operators = new Operator[]
                 {
                     new Operator("!", "!", 0, false),
-                    new Operator("^", "^", 1, false),
+                    new Operator("^", "\\^", 1, false),
                     new Operator("*", "\\*", 2, true),
                     new Operator("/", "/", 2, true),
                     new Operator("%", "%", 2, true),

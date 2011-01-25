@@ -4,6 +4,7 @@ import brainfuckcompiler.expressions.operators.Operator;
 import brainfuckcompiler.expressions.operators.Operators;
 import brainfuckcompiler.statics;
 import java.util.Stack;
+import java.util.regex.Matcher;
 
 /**
  *
@@ -25,8 +26,7 @@ public class ExpressionGenerator
         for (int i = 0; i < tokens.length; i++)
         {
             String t = tokens[i];
-            char c = t.charAt(0);
-            if ((c >= '0' && c <= '9') || (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || (c == '.'))
+            if (t.matches("[0-9]+"))
             {
                 b.append(t);
                 b.append(" ");
@@ -79,88 +79,12 @@ public class ExpressionGenerator
 
     private static String[] tokenize(String e)
     {
-        StringBuilder b = new StringBuilder();
-        e = e.trim();
-        if (e.length() == 0)
-        {
-            return null;
-        }
-        int index = 0;
-        char prev = e.charAt(index);
-        if (((prev >= '0') && (prev <= '9')) || ((prev >= 'a') && (prev <= 'z')) || ((prev >= 'A') && (prev <= 'Z')) || (prev == '(') || (prev == ')'))
-        {
-            b.append(prev);
-        } else
-        {
-            String s = statics.ops.findOperator(e, index);
-            if (s == null)
-            {
-                System.out.println("Unexpected token at position " + index);
-                System.exit(-1);
-            }
-            index += (s.length() - 1);
-            b.append(s);
-            b.append(' ');
-            prev = ' ';
-        }
-        while ((++index) < e.length())
-        {
-            char c = e.charAt(index);
-            if ((c == ' ') && (prev != ' '))
-            {
-                b.append(c);
-                prev = c;
-            } else if ((c >= '0' && c <= '9') && (prev >= '0' && prev <= '9'))
-            {
-                b.append(c);
-                prev = c;
-            } else if ((c >= '0' && c <= '9') && ((!(prev >= '0' && prev <= '9')) || (prev != ' ')))
-            {
-                if (prev != ' ')
-                {
-                    b.append(' ');
-                }
-                b.append(c);
-                prev = c;
-            } else if (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) && ((prev >= 'a' && prev <= 'z') || (prev >= 'A' && prev <= 'Z')))
-            {
-                b.append(c);
-                prev = c;
-            } else if (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')) && ((!((prev >= 'a' && prev <= 'z') || (prev >= 'A' && prev <= 'Z'))) || (prev != ' ')))
-            {
-                if (prev != ' ')
-                {
-                    b.append(' ');
-                }
-                b.append(c);
-                prev = c;
-            } else if (c == '(' || c == ')')
-            {
-                if (prev != ' ')
-                {
-                    b.append(' ');
-                }
-                b.append(c);
-                prev = c;
-            } else
-            {
-                String s = statics.ops.findOperator(e, index);
-                if (s == null)
-                {
-                    System.out.println("Unexpected token at position " + index);
-                    System.exit(-1);
-                }
-                index += (s.length() - 1);
-                if (prev != ' ')
-                {
-                    b.append(' ');
-                }
-                b.append(s);
-                b.append(' ');
-                prev = ' ';
-            }
-        }
-        return b.toString().split(" ");
+        Matcher m = statics.p.matcher(e);
+        java.util.ArrayList<String> l = new java.util.ArrayList<String>();
+        while(m.find())l.add(m.group());
+        String[] ret = new String[l.size()];
+        l.toArray(ret);
+        return ret;
     }
 
     /**

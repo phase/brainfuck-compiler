@@ -49,6 +49,7 @@ public class Operator implements Comparable
         this.op = op;
         this.precedence = precedence;
         this.leftAssociative = leftAssociative;
+        this.regex=regex;
     }
 
     public int compareTo(Object ob)
