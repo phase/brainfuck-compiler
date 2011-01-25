@@ -3,7 +3,9 @@ package brainfuckcompiler.expressions.operators;
 import brainfuckcompiler.expressions.Node;
 import brainfuckcompiler.expressions.nodes.*;
 import brainfuckcompiler.expressions.nodetypes.Constant;
+import brainfuckcompiler.statics;
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -21,21 +23,21 @@ public class Operators
     {
         operators = new Operator[]
                 {
-                    new Operator("!", 0, false),
-                    new Operator("^", 1, false),
-                    new Operator("*", 2, true),
-                    new Operator("/", 2, true),
-                    new Operator("%", 2, true),
-                    new Operator("+", 3, true),
-                    new Operator("-", 3, true),
-                    new Operator("<", 4, true),
-                    new Operator("<=", 4, true),
-                    new Operator(">", 4, true),
-                    new Operator(">=", 4, true),
-                    new Operator("==", 5, true),
-                    new Operator("!=", 5, true),
-                    new Operator("&&", 6, true),
-                    new Operator("||", 7, true)
+                    new Operator("!", "!", 0, false),
+                    new Operator("^", "^", 1, false),
+                    new Operator("*", "\\*", 2, true),
+                    new Operator("/", "/", 2, true),
+                    new Operator("%", "%", 2, true),
+                    new Operator("+", "\\+", 3, true),
+                    new Operator("-", "-", 3, true),
+                    new Operator("<", "<", 4, true),
+                    new Operator("<=", "<=", 4, true),
+                    new Operator(">", ">", 4, true),
+                    new Operator(">=", ">=", 4, true),
+                    new Operator("==", "==", 5, true),
+                    new Operator("!=", "!=", 5, true),
+                    new Operator("&&", "\\&\\&", 6, true),
+                    new Operator("||", "\\|\\|", 7, true)
                 };
         Arrays.sort(operators);
     }
@@ -47,11 +49,11 @@ public class Operators
      */
     public Operator getOperator(String token)
     {
-        for (int i = 0; i < operators.length; i++)
+        for (Operator o : operators)
         {
-            if (operators[i].getOp().equals(token))
+            if (o.getOp().equals(token))
             {
-                return operators[i];
+                return o;
             }
         }
         return null;
@@ -65,9 +67,9 @@ public class Operators
      */
     public String findOperator(String exp, int index)
     {
-        for (int i = 0; i < operators.length; i++)
+        for (Operator o : operators)
         {
-            String s = operators[i].getOp();
+            String s = o.getOp();
             if ((index + s.length()) > exp.length())
             {
                 continue;
@@ -147,10 +149,22 @@ public class Operators
         {
             return new ExponentiationOperator();
         }
-        if ((token.length() > 0) && ((token.charAt(0) >= '0' && token.charAt(0) <= '9') || (token.charAt(0) == '.')))
+        if (token.matches("[0-9]+"))
         {
             return new Constant();
         }
         return null;
+    }
+
+    public void createRegex()
+    {
+        StringBuilder b = new StringBuilder("([0-9]+)|(\\()|(\\))");
+        for (Operator o : operators)
+        {
+            b.append("|(");
+            b.append(o.getRegex());
+            b.append(")");
+        }
+        statics.p = Pattern.compile(b.toString());
     }
 }

@@ -14,7 +14,7 @@ public class ExpressionGenerator
 
     private static String convertInfixToPostfix(String e)
     {
-        Operator paren = new Operator("(", Integer.MAX_VALUE, true), temp;
+        Operator paren = new Operator("(","\\(",Integer.MAX_VALUE, true), temp;
         Stack s = new Stack();
         StringBuilder b = new StringBuilder();
         String[] tokens = tokenize(e);

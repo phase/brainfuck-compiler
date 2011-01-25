@@ -7,7 +7,7 @@ package brainfuckcompiler.expressions.operators;
 public class Operator implements Comparable
 {
 
-    private String op;
+    private String op, regex;
     private int precedence;
     private boolean leftAssociative;
 
@@ -37,14 +37,14 @@ public class Operator implements Comparable
     {
         return op;
     }
-    
+
     /**
      *
      * @param op
      * @param precedence
      * @param leftAssociative
      */
-    public Operator(String op, int precedence, boolean leftAssociative)
+    public Operator(String op, String regex, int precedence, boolean leftAssociative)
     {
         this.op = op;
         this.precedence = precedence;
@@ -65,5 +65,10 @@ public class Operator implements Comparable
         {
             return 1;
         }
+    }
+
+    public String getRegex()
+    {
+        return regex;
     }
 }
