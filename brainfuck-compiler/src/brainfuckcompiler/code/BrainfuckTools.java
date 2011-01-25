@@ -1,7 +1,5 @@
 package brainfuckcompiler.code;
 
-import brainfuckcompiler.code.random.RandomNumberGenerator;
-
 /**
  *
  * @author vrighter
@@ -11,7 +9,6 @@ public class BrainfuckTools
 
     private boolean[] memory;
     private int pointer, startmemorysearch;
-    private RandomNumberGenerator gen;
     private StringBuffer b;
 
     /**
@@ -24,7 +21,6 @@ public class BrainfuckTools
         pointer = 0;
         startmemorysearch = 0;
         this.b = new StringBuffer();
-        gen = new RandomNumberGenerator(this);
     }
 
     /**

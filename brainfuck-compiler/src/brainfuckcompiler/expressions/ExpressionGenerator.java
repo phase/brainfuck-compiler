@@ -1,8 +1,8 @@
 package brainfuckcompiler.expressions;
 
-import brainfuckcompiler.code.BrainfuckTools;
 import brainfuckcompiler.expressions.operators.Operator;
 import brainfuckcompiler.expressions.operators.Operators;
+import brainfuckcompiler.statics;
 import java.util.Stack;
 
 /**
@@ -12,12 +12,12 @@ import java.util.Stack;
 public class ExpressionGenerator
 {
 
-    private static String convertInfixToPostfix(String e, Operators ops)
+    private static String convertInfixToPostfix(String e)
     {
         Operator paren = new Operator("(", Integer.MAX_VALUE, true), temp;
         Stack s = new Stack();
         StringBuilder b = new StringBuilder();
-        String[] tokens = tokenize(e,ops);
+        String[] tokens = tokenize(e);
         if (tokens == null)
         {
             return "";
@@ -42,7 +42,7 @@ public class ExpressionGenerator
                 }
             } else
             {
-                Operator o = ops.getOperator(t);
+                Operator o = statics.ops.getOperator(t);
                 if (s.empty())
                 {
                     s.push(o);
@@ -77,7 +77,7 @@ public class ExpressionGenerator
         return b.substring(0, b.length() - 1);
     }
 
-    private static String[] tokenize(String e, Operators ops)
+    private static String[] tokenize(String e)
     {
         StringBuilder b = new StringBuilder();
         e = e.trim();
@@ -92,7 +92,7 @@ public class ExpressionGenerator
             b.append(prev);
         } else
         {
-            String s = ops.findOperator(e, index);
+            String s = statics.ops.findOperator(e, index);
             if (s == null)
             {
                 System.out.println("Unexpected token at position " + index);
@@ -144,7 +144,7 @@ public class ExpressionGenerator
                 prev = c;
             } else
             {
-                String s = ops.findOperator(e, index);
+                String s = statics.ops.findOperator(e, index);
                 if (s == null)
                 {
                     System.out.println("Unexpected token at position " + index);
@@ -166,20 +166,18 @@ public class ExpressionGenerator
     /**
      *
      * @param s
-     * @param ops
-     * @param t
      * @return
      */
-    public static int generateCodeForExpression(String s,Operators ops,BrainfuckTools t)
+    public static int generateCodeForExpression(String s)
     {
-        return generateCodeForPostfixExpression(t,convertInfixToPostfix(s,ops));
+        return generateCodeForPostfixExpression(convertInfixToPostfix(s));
     }
 
-    private static int generateCodeForPostfixExpression(BrainfuckTools t, String s)
+    private static int generateCodeForPostfixExpression(String s)
     {
         String[] tokens = s.split(" ");
         Node tree = Operators.createNode(tokens[tokens.length - 1]);
         tree.populate(tokens, tokens.length - 2);
-        return tree.generateBF(t);
+        return tree.generateBF();
     }
 }

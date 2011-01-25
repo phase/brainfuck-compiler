@@ -1,7 +1,7 @@
 package brainfuckcompiler.expressions.nodes;
 
-import brainfuckcompiler.code.BrainfuckTools;
 import brainfuckcompiler.expressions.nodetypes.BinaryOperator;
+import brainfuckcompiler.statics;
 
 /**
  *
@@ -23,12 +23,12 @@ public class SmallerThanOrEqualOperator extends BinaryOperator
      * @param t
      * @return
      */
-    public int generateBF(BrainfuckTools t)
+    public int generateBF()
     {
-        int x = left.generateBF(t), y = right.generateBF(t);
-        int res = t.smallerthanorequal(x, y);
-        t.clear(y);
-        t.free(y);
+        int x = left.generateBF(), y = right.generateBF();
+        int res = statics.t.smallerthanorequal(x, y);
+        statics.t.clear(y);
+        statics.t.free(y);
         return res;
     }
 }

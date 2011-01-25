@@ -1,7 +1,7 @@
 package brainfuckcompiler.expressions.nodes;
 
-import brainfuckcompiler.code.BrainfuckTools;
 import brainfuckcompiler.expressions.nodetypes.UnaryOperator;
+import brainfuckcompiler.statics;
 
 /**
  *
@@ -23,9 +23,9 @@ public class NotOperator extends UnaryOperator
      * @param t
      * @return
      */
-    public int generateBF(BrainfuckTools t)
+    public int generateBF()
     {
-        int x = operand.returnsBoolean ? operand.generateBF(t) : t.toBoolean(operand.generateBF(t));
-        return t.not(x);
+        int x = operand.returnsBoolean ? operand.generateBF() : statics.t.toBoolean(operand.generateBF());
+        return statics.t.not(x);
     }
 }

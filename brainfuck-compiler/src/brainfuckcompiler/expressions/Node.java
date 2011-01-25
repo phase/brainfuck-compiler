@@ -17,7 +17,7 @@ public abstract class Node
    * @param t
    * @return
    */
-  public abstract int generateBF(BrainfuckTools t);
+  public abstract int generateBF();
   /**
    *
    * @param tokens

@@ -1,6 +1,7 @@
 package brainfuckcompiler.code.strings;
 
 import brainfuckcompiler.code.BrainfuckTools;
+import brainfuckcompiler.statics;
 
 class factorPair
 {
@@ -19,25 +20,25 @@ class factorPair
         return 7 + f1 + f2 + Math.abs(rest);
     }
 
-    void output(boolean bigger, BrainfuckTools t)
+    void output(boolean bigger)
     {
-        t.append('>');
+        statics.t.append('>');
         for (int i = 0; i < f1; i++)
         {
-            t.append('+');
+            statics.t.append('+');
         }
-        t.append("[<");
+        statics.t.append("[<");
         char r = bigger ? '+' : '-';
         for (int i = 0; i < f2; i++)
         {
-            t.append(r);
+            statics.t.append(r);
         }
-        t.append(">-]<");
+        statics.t.append(">-]<");
         r = ((rest < 0 && bigger) || (rest > 0 && (!bigger))) ? '-' : '+';
         rest = Math.abs(rest);
         for (int i = 0; i < rest; i++)
         {
-            t.append(r);
+            statics.t.append(r);
         }
     }
 }

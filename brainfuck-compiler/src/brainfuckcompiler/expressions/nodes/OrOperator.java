@@ -2,6 +2,7 @@ package brainfuckcompiler.expressions.nodes;
 
 import brainfuckcompiler.code.BrainfuckTools;
 import brainfuckcompiler.expressions.nodetypes.BinaryOperator;
+import brainfuckcompiler.statics;
 
 /**
  *
@@ -23,10 +24,10 @@ public class OrOperator extends BinaryOperator
      * @param t
      * @return
      */
-    public int generateBF(BrainfuckTools t)
+    public int generateBF()
     {
-        int x = left.returnsBoolean ? left.generateBF(t) : t.toBoolean(left.generateBF(t)),
-                y = right.returnsBoolean ? right.generateBF(t) : t.toBoolean(right.generateBF(t));
-        return t.or(x, y);
+        int x = left.returnsBoolean ? left.generateBF() : statics.t.toBoolean(left.generateBF()),
+                y = right.returnsBoolean ? right.generateBF() : statics.t.toBoolean(right.generateBF());
+        return statics.t.or(x, y);
     }
 }

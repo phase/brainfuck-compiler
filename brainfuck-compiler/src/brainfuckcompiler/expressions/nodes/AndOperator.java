@@ -1,7 +1,7 @@
 package brainfuckcompiler.expressions.nodes;
 
-import brainfuckcompiler.code.BrainfuckTools;
 import brainfuckcompiler.expressions.nodetypes.BinaryOperator;
+import brainfuckcompiler.statics;
 
 /**
  *
@@ -23,13 +23,13 @@ public class AndOperator extends BinaryOperator
      * @param t
      * @return
      */
-    public int generateBF(BrainfuckTools t)
+    public int generateBF()
     {
-        int x = left.returnsBoolean ? left.generateBF(t) : t.toBoolean(left.generateBF(t)),
-                y = right.returnsBoolean ? right.generateBF(t) : t.toBoolean(right.generateBF(t));
-        int res = t.and(x, y);
-        t.clear(y);
-        t.free(y);
+        int x = left.returnsBoolean ? left.generateBF() : statics.t.toBoolean(left.generateBF()),
+                y = right.returnsBoolean ? right.generateBF() : statics.t.toBoolean(right.generateBF());
+        int res = statics.t.and(x, y);
+        statics.t.clear(y);
+        statics.t.free(y);
         return res;
     }
 }

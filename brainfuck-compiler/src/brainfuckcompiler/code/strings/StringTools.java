@@ -1,6 +1,7 @@
 package brainfuckcompiler.code.strings;
 
 import brainfuckcompiler.code.BrainfuckTools;
+import brainfuckcompiler.statics;
 import java.util.ArrayList;
 
 /**
@@ -15,23 +16,23 @@ public class StringTools
      * @param s
      * @param t
      */
-    public static void printString(String s, BrainfuckTools t)
+    public static void printString(String s)
     {
-        int address = t.allocContiguous(2);
-        t.to(address);
+        int address = statics.t.allocContiguous(2);
+        statics.t.to(address);
         int prev = 0;
         for (int i = 0; i < s.length(); i++)
         {
             char c = s.charAt(i);
-            generate(prev, c,t);
+            generate(prev, c);
             prev = c;
-            t.append('.');
+            statics.t.append('.');
         }
-        t.clear(address);
-        t.freeContiguous(address, 2);
+        statics.t.clear(address);
+        statics.t.freeContiguous(address, 2);
     }
 
-    static void generate(int prev, int c, BrainfuckTools t)
+    static void generate(int prev, int c)
     {
         int difference = c - prev;
         if (difference == 0)
@@ -69,18 +70,18 @@ public class StringTools
         }
         if (shortest == absDifference)
         {
-            outputNoLoop(absDifference, bigger, t);
+            outputNoLoop(absDifference, bigger);
         } else
         {
-            fShortest.output(bigger,t);
+            fShortest.output(bigger);
         }
     }
 
-    static void outputNoLoop(int difference, boolean bigger, BrainfuckTools t)
+    static void outputNoLoop(int difference, boolean bigger)
     {
         for (int i = 0; i < difference; i++)
         {
-            t.append(bigger ? '+' : '-');
+            statics.t.append(bigger ? '+' : '-');
         }
     }
 }
