@@ -1,6 +1,5 @@
 package brainfuckcompiler.code.random;
 
-import brainfuckcompiler.code.BrainfuckTools;
 import brainfuckcompiler.statics;
 
 /**
@@ -12,10 +11,6 @@ public class RandomNumberGenerator
 
     private int randomh, randoml;
 
-    /**
-     *
-     * @param t
-     */
     public RandomNumberGenerator()
     {
         randomh = statics.t.alloc();

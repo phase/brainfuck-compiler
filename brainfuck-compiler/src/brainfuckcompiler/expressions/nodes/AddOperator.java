@@ -1,6 +1,5 @@
 package brainfuckcompiler.expressions.nodes;
 
-import brainfuckcompiler.code.BrainfuckTools;
 import brainfuckcompiler.expressions.nodetypes.BinaryOperator;
 import brainfuckcompiler.statics;
 
@@ -13,7 +12,6 @@ public class AddOperator extends BinaryOperator
 
     /**
      *
-     * @param t
      * @return
      */
     public int generateBF()

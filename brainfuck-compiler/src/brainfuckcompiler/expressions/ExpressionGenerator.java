@@ -15,7 +15,7 @@ public class ExpressionGenerator
 
     private static String convertInfixToPostfix(String e)
     {
-        Operator paren = new Operator("(","\\(",Integer.MAX_VALUE, true), temp;
+        Operator paren = new Operator("(", "\\(", Integer.MAX_VALUE, true), temp;
         Stack s = new Stack();
         StringBuilder b = new StringBuilder();
         String[] tokens = tokenize(e);
@@ -81,7 +81,10 @@ public class ExpressionGenerator
     {
         Matcher m = statics.p.matcher(e);
         java.util.ArrayList<String> l = new java.util.ArrayList<String>();
-        while(m.find())l.add(m.group());
+        while (m.find())
+        {
+            l.add(m.group());
+        }
         String[] ret = new String[l.size()];
         l.toArray(ret);
         return ret;

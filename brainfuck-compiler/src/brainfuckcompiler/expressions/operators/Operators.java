@@ -22,23 +22,23 @@ public class Operators
     public Operators()
     {
         operators = new Operator[]
-                {
-                    new Operator("!", "!", 0, false),
-                    new Operator("^", "\\^", 1, false),
-                    new Operator("*", "\\*", 2, true),
-                    new Operator("/", "/", 2, true),
-                    new Operator("%", "%", 2, true),
-                    new Operator("+", "\\+", 3, true),
-                    new Operator("-", "-", 3, true),
-                    new Operator("<", "<", 4, true),
-                    new Operator("<=", "<=", 4, true),
-                    new Operator(">", ">", 4, true),
-                    new Operator(">=", ">=", 4, true),
-                    new Operator("==", "==", 5, true),
-                    new Operator("!=", "!=", 5, true),
-                    new Operator("&&", "\\&\\&", 6, true),
-                    new Operator("||", "\\|\\|", 7, true)
-                };
+        {
+            new Operator("!", "!", 0, false),
+            new Operator("^", "\\^", 1, false),
+            new Operator("*", "\\*", 2, true),
+            new Operator("/", "/", 2, true),
+            new Operator("%", "%", 2, true),
+            new Operator("+", "\\+", 3, true),
+            new Operator("-", "-", 3, true),
+            new Operator("<", "<", 4, true),
+            new Operator("<=", "<=", 4, true),
+            new Operator(">", ">", 4, true),
+            new Operator(">=", ">=", 4, true),
+            new Operator("==", "==", 5, true),
+            new Operator("!=", "!=", 5, true),
+            new Operator("&&", "\\&\\&", 6, true),
+            new Operator("||", "\\|\\|", 7, true)
+        };
         Arrays.sort(operators);
     }
 
