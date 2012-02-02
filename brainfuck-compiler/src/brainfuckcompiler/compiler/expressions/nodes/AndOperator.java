@@ -1,20 +1,19 @@
-package brainfuckcompiler.expressions.nodes;
+package brainfuckcompiler.compiler.expressions.nodes;
 
-import brainfuckcompiler.code.BrainfuckTools;
-import brainfuckcompiler.expressions.nodetypes.BinaryOperator;
+import brainfuckcompiler.compiler.expressions.nodetypes.BinaryOperator;
 import brainfuckcompiler.statics;
 
 /**
  *
  * @author vrighter
  */
-public class OrOperator extends BinaryOperator
+public class AndOperator extends BinaryOperator
 {
 
     /**
      *
      */
-    public OrOperator()
+    public AndOperator()
     {
         returnsBoolean = true;
     }
@@ -28,6 +27,9 @@ public class OrOperator extends BinaryOperator
     {
         int x = left.returnsBoolean ? left.generateBF() : statics.t.toBoolean(left.generateBF()),
                 y = right.returnsBoolean ? right.generateBF() : statics.t.toBoolean(right.generateBF());
-        return statics.t.or(x, y);
+        int res = statics.t.and(x, y);
+        statics.t.clear(y);
+        statics.t.free(y);
+        return res;
     }
 }

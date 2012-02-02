@@ -1,6 +1,4 @@
-package brainfuckcompiler.expressions;
-
-import brainfuckcompiler.code.BrainfuckTools;
+package brainfuckcompiler.compiler.expressions;
 
 /**
  *

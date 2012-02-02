@@ -2,7 +2,7 @@ package brainfuckcompiler;
 
 import brainfuckcompiler.code.BrainfuckTools;
 import brainfuckcompiler.code.random.RandomNumberGenerator;
-import brainfuckcompiler.expressions.operators.Operators;
+import brainfuckcompiler.compiler.expressions.operators.Operators;
 import java.util.regex.Pattern;
 
 public class statics

@@ -233,9 +233,9 @@ public class BrainfuckTools
     }
 
     /**
-     *
-     * @param address
-     * @param val
+     * set a value to address<br>pointer ends at address
+     * @param address the address in which to store the value
+     * @param val the integer value to set
      */
     public void set(int address, int val)
     {
@@ -243,11 +243,10 @@ public class BrainfuckTools
         plus(val);
     }
 
-    //x <- y
     /**
-     *
-     * @param x
-     * @param y
+     * moves the value in y into x<br>assumes x is blank<br>pointer ends at y
+     * @param x address to move to
+     * @param y address of value to move
      */
     public void move(int x, int y)
     {
@@ -256,11 +255,10 @@ public class BrainfuckTools
         deloop(y);
     }
 
-    //copies y to a new location and returns the copy's address
     /**
-     *
-     * @param y
-     * @return
+     * copies y to a new memory location and returns the copy's address<br>pointer ends at a freed cell
+     * @param y the value to copy
+     * @return the address of the copy
      */
     public int copy(int y)
     {

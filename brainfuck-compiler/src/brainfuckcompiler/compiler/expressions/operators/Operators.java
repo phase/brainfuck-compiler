@@ -1,8 +1,8 @@
-package brainfuckcompiler.expressions.operators;
+package brainfuckcompiler.compiler.expressions.operators;
 
-import brainfuckcompiler.expressions.Node;
-import brainfuckcompiler.expressions.nodes.*;
-import brainfuckcompiler.expressions.nodetypes.Constant;
+import brainfuckcompiler.compiler.expressions.Node;
+import brainfuckcompiler.compiler.expressions.nodes.*;
+import brainfuckcompiler.compiler.expressions.nodetypes.Constant;
 import brainfuckcompiler.statics;
 import java.util.Arrays;
 import java.util.regex.Pattern;
@@ -158,7 +158,7 @@ public class Operators
 
     public void createRegex()
     {
-        StringBuilder b = new StringBuilder("([0-9]+)|(\\()|(\\))");
+        StringBuilder b = new StringBuilder("([_a-zA-Z][_0-9a-zA-Z]*\\[)|([_a-zA-Z][_0-9a-zA-Z]*\\()|([_a-zA-Z][_0-9a-zA-Z]*)|([0-9]+)|(\\()|(\\))");
         for (Operator o : operators)
         {
             b.append("|(");

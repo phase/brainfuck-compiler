@@ -38,7 +38,7 @@ public class Array
     }
 
     /**
-     * Gets a value from the array. Assumes the destination cell is 0
+     * Gets a value from the array. Assumes the destination cell is 0, preserves the value of pos
      *
      * @param pos The position to extract
      * @param dest The destination cell

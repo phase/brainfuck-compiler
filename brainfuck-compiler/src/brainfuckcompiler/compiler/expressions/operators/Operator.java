@@ -1,4 +1,4 @@
-package brainfuckcompiler.expressions.operators;
+package brainfuckcompiler.compiler.expressions.operators;
 
 /**
  *

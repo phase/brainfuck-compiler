@@ -1,6 +1,5 @@
 package brainfuckcompiler.code.strings;
 
-import brainfuckcompiler.code.BrainfuckTools;
 import brainfuckcompiler.statics;
 
 class factorPair

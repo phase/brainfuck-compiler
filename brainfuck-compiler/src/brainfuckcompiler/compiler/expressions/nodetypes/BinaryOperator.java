@@ -1,7 +1,7 @@
-package brainfuckcompiler.expressions.nodetypes;
+package brainfuckcompiler.compiler.expressions.nodetypes;
 
-import brainfuckcompiler.expressions.Node;
-import brainfuckcompiler.expressions.operators.Operators;
+import brainfuckcompiler.compiler.expressions.Node;
+import brainfuckcompiler.compiler.expressions.operators.Operators;
 
 /**
  *

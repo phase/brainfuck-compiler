@@ -1,19 +1,19 @@
-package brainfuckcompiler.expressions.nodes;
+package brainfuckcompiler.compiler.expressions.nodes;
 
-import brainfuckcompiler.expressions.nodetypes.BinaryOperator;
+import brainfuckcompiler.compiler.expressions.nodetypes.BinaryOperator;
 import brainfuckcompiler.statics;
 
 /**
  *
  * @author vrighter
  */
-public class LargerThanOrEqualOperator extends BinaryOperator
+public class SmallerThanOperator extends BinaryOperator
 {
 
     /**
      *
      */
-    public LargerThanOrEqualOperator()
+    public SmallerThanOperator()
     {
         returnsBoolean = true;
     }
@@ -29,7 +29,6 @@ public class LargerThanOrEqualOperator extends BinaryOperator
         int res = statics.t.smallerthan(x, y);
         statics.t.clear(y);
         statics.t.free(y);
-        res = statics.t.not(res);
         return res;
     }
 }

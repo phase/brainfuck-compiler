@@ -1,6 +1,6 @@
-package brainfuckcompiler.expressions.nodes;
+package brainfuckcompiler.compiler.expressions.nodes;
 
-import brainfuckcompiler.expressions.nodetypes.BinaryOperator;
+import brainfuckcompiler.compiler.expressions.nodetypes.BinaryOperator;
 import brainfuckcompiler.statics;
 
 /**
