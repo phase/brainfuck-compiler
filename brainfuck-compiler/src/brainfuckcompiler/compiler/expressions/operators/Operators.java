@@ -37,7 +37,8 @@ public class Operators
             new Operator("==", "==", 5, true),
             new Operator("!=", "!=", 5, true),
             new Operator("&&", "\\&\\&", 6, true),
-            new Operator("||", "\\|\\|", 7, true)
+            new Operator("||", "\\|\\|", 7, true),
+            new Operator("=", "=", 8, false)
         };
         Arrays.sort(operators);
     }
@@ -148,6 +149,22 @@ public class Operators
         if (token.equals("^"))
         {
             return new ExponentiationOperator();
+        }
+        if (token.equals("="))
+        {
+            return null;
+        }
+        if (token.matches("[_a-zA-Z][_0-9a-zA-Z]*\\[.*\\]"))
+        {
+            return null;
+        }
+        if (token.matches("[_a-zA-Z][_0-9a-zA-Z]*\\(.*\\)"))
+        {
+            return null;
+        }
+        if (token.matches("[_a-zA-Z][_0-9a-zA-Z]*"))
+        {
+            return null;
         }
         if (token.matches("[0-9]+"))
         {

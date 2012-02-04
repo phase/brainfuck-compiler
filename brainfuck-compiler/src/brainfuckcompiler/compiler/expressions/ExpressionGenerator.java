@@ -185,13 +185,12 @@ public class ExpressionGenerator
 
     private static int generateCodeForPostfixExpression(String[] tokens)
     {
-        for (String s : tokens)
-        {
-            System.out.println(s);
-        }
-        System.exit(0);
         Node tree = Operators.createNode(tokens[tokens.length - 1]);
-        tree.populate(tokens, tokens.length - 2);
+        if (tree.populate(tokens, tokens.length - 2) != -1)
+        {
+            System.out.println("Error in expression. Not all detected tokens were used. Please recheck Expression");
+            System.exit(0);
+        }
         return tree.generateBF();
     }
 }

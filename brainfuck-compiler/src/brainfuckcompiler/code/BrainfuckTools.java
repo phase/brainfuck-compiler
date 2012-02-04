@@ -8,11 +8,12 @@ public class BrainfuckTools
 {
 
     private boolean[] memory;
-    private int pointer, startmemorysearch;
+    private int pointer, startmemorysearch, largestmemorylocation;
     private StringBuffer b;
 
     /**
      * Creates a new BrainfuckTools object and initializes the memory manager
+     *
      * @param memory The amount of memory in cells
      */
     public BrainfuckTools(int memory)
@@ -20,6 +21,7 @@ public class BrainfuckTools
         this.memory = new boolean[memory];
         pointer = 0;
         startmemorysearch = 0;
+        largestmemorylocation = -1;
         this.b = new StringBuffer();
     }
 
@@ -33,8 +35,9 @@ public class BrainfuckTools
     }
 
     /**
-     * Set the current memory location.
-     * Used when literal code is added using unbalanced loops
+     * Set the current memory location. Used when literal code is added using
+     * unbalanced loops
+     *
      * @param p The current memory location
      */
     public void at(int p)
@@ -43,8 +46,8 @@ public class BrainfuckTools
     }
 
     /**
-     * Moves the pointer to the specified location.
-     * Pointer ends at p.
+     * Moves the pointer to the specified location. Pointer ends at p.
+     *
      * @param p The address to move the pointer to
      */
     public void to(int p)
@@ -72,6 +75,7 @@ public class BrainfuckTools
 
     /**
      * Free addresses in memory
+     *
      * @param addresses The addresses to mark as free
      */
     public void free(int... addresses)
@@ -88,6 +92,7 @@ public class BrainfuckTools
 
     /**
      * Free a block of memory
+     *
      * @param address The starting address of the block
      * @param amt The size of the block
      */
@@ -101,6 +106,7 @@ public class BrainfuckTools
 
     /**
      * Allocates a cell of memory
+     *
      * @return The address of the allocated cell or -1 if the memory is full
      */
     public int alloc()
@@ -111,6 +117,10 @@ public class BrainfuckTools
             {
                 memory[i] = true;
                 startmemorysearch = i + 1;
+                if (i > largestmemorylocation)
+                {
+                    largestmemorylocation = i;
+                }
                 return i;
             }
         }
@@ -118,8 +128,9 @@ public class BrainfuckTools
     }
 
     /**
-     * Allocate a number of cells of memory.
-     * The cells may not necessarily be contiguous
+     * Allocate a number of cells of memory. The cells may not necessarily be
+     * contiguous
+     *
      * @param amt The number of cells to allocate
      * @return An array containing the allocated addresses
      */
@@ -135,6 +146,7 @@ public class BrainfuckTools
 
     /**
      * Allocates a block of contiguous memory
+     *
      * @param amt The size of the block required
      * @return the starting address of the block or -1 if none can be found
      */
@@ -158,14 +170,24 @@ public class BrainfuckTools
             for (int j = 0; j < amt; j++)
             {
                 memory[i + j] = true;
+                if ((i + j) > largestmemorylocation)
+                {
+                    largestmemorylocation = i + j;
+                }
             }
             return i;
         }
         return -1;
     }
 
+    public int getLargestMemorylocation()
+    {
+        return largestmemorylocation;
+    }
+
     /**
      * Adds n to the current cell
+     *
      * @param n The amount to add
      */
     public void plus(int n)
@@ -178,6 +200,7 @@ public class BrainfuckTools
 
     /**
      * Adds a specified amount to a particular cell<br>Pointer ends at address
+     *
      * @param address The cell to add to.
      * @param n The amount to add
      */
@@ -192,6 +215,7 @@ public class BrainfuckTools
 
     /**
      * Subtracts a specified amount from the current cell
+     *
      * @param n the amount to subtract
      */
     public void minus(int n)
@@ -204,6 +228,7 @@ public class BrainfuckTools
 
     /**
      * Subtracts a specified amount from address<br>Pointer ends at address
+     *
      * @param address The address from which to subtract
      * @param n The amount to subtract
      */
@@ -219,6 +244,7 @@ public class BrainfuckTools
     /**
      * Creates a cell with a boolean value of 1 if the value at address is not 0
      * <br>The address is freed
+     *
      * @param address The address to process
      * @return a new address with a boolean value
      */
@@ -234,6 +260,7 @@ public class BrainfuckTools
 
     /**
      * set a value to address<br>pointer ends at address
+     *
      * @param address the address in which to store the value
      * @param val the integer value to set
      */
@@ -245,6 +272,7 @@ public class BrainfuckTools
 
     /**
      * moves the value in y into x<br>assumes x is blank<br>pointer ends at y
+     *
      * @param x address to move to
      * @param y address of value to move
      */
@@ -256,7 +284,9 @@ public class BrainfuckTools
     }
 
     /**
-     * copies y to a new memory location and returns the copy's address<br>pointer ends at a freed cell
+     * copies y to a new memory location and returns the copy's
+     * address<br>pointer ends at a freed cell
+     *
      * @param y the value to copy
      * @return the address of the copy
      */

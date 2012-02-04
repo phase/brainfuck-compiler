@@ -1,0 +1,13 @@
+function gcd(a,b)
+	while b!=0
+		assign t,b
+		b=a%b
+		a=t
+	gcd=a
+
+function lcm(a,b)
+	lcm=(a*b)/gcd(a,b)
+
+assign a,3
+assign b,8
+assign c,lcm(a,b)

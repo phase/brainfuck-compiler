@@ -41,6 +41,7 @@ public class Operator implements Comparable
     /**
      *
      * @param op
+     * @param regex 
      * @param precedence
      * @param leftAssociative
      */
