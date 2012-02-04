@@ -4,22 +4,15 @@ public class Line extends Item
 {
 
     private String line;
-    private int lineNumber;
 
     public Line(int indentLevel, String line, Block parentBlock, int lineNumber)
     {
-        super(indentLevel, parentBlock);
+        super(indentLevel, parentBlock, lineNumber);
         this.line = line;
-        this.lineNumber = lineNumber;
     }
 
     public String getLine()
     {
         return line;
-    }
-
-    public int getLineNumber()
-    {
-        return lineNumber;
     }
 }

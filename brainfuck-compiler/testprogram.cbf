@@ -1,6 +1,6 @@
 function gcd(a,b)
 	while b!=0
-		assign t,b
+		declare t,b
 		b=a%b
 		a=t
 	gcd=a
@@ -8,6 +8,6 @@ function gcd(a,b)
 function lcm(a,b)
 	lcm=(a*b)/gcd(a,b)
 
-assign a,3
-assign b,8
-assign c,lcm(a,b)
+declare a,3
+declare b,8
+declare c,lcm(a,b)

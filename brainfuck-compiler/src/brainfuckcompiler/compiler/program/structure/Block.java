@@ -1,22 +1,29 @@
 package brainfuckcompiler.compiler.program.structure;
 
+import brainfuckcompiler.compiler.program.statements.BlockStatement;
+import brainfuckcompiler.compiler.program.statements.IfStatement;
+import brainfuckcompiler.compiler.program.statements.Statement;
+import brainfuckcompiler.compiler.program.statements.WhileStatement;
 import java.util.ArrayList;
 
 public class Block extends Item
 {
 
     ArrayList<Item> items;
+    ArrayList<Statement> statements;
 
-    public Block(ArrayList<Item> items, int indentLevel, Block parentBlock)
+    public Block(ArrayList<Item> items, int indentLevel, Block parentBlock, int lineNumber)
     {
-        super(indentLevel, parentBlock);
+        super(indentLevel, parentBlock, lineNumber);
         for (Item i : items)
         {
             i.setParentBlock(this);
         }
         for (int i = 0; i < items.size(); i++)
         {
-            int currentIndentLevel = items.get(i).getIndentLevel();
+            Item item = items.get(i);
+            int currentIndentLevel = item.getIndentLevel();
+            int blockLineNumber = item.getLineNumber();
             if (currentIndentLevel > this.getIndentLevel())
             {
                 int amtitems = 1;
@@ -35,39 +42,50 @@ public class Block extends Item
                 {
                     newBlockItems.add(items.remove(i));
                 }
-                items.add(i, new Block(newBlockItems, currentIndentLevel, this));
+                items.add(i, new Block(newBlockItems, currentIndentLevel, this, blockLineNumber));
             }
         }
         this.items = items;
     }
 
-    public void output()
+    public void generateStatements()
     {
-        outputIndentLevel("Start block at indent level " + indentLevel, -1);
-        for (Item i : items)
+        statements = new ArrayList<Statement>();
+        int pos = 0;
+        while (pos < items.size())
         {
-            if (i instanceof Line)
+            Item i = items.get(pos);
+            if (i instanceof Block)
             {
-                Line l = (Line) i;
-                outputIndentLevel(l.getLine(), l.getLineNumber());
-            } else
+                Statement s = new BlockStatement((Block) i, this);
+                statements.add(s);
+                pos++;
+                continue;
+            }
+            Line l = (Line) i;
+            if (l.getLine().equals("else"))
             {
-                ((Block) i).output();
+                System.out.println("else without an if found at line " + l.getLineNumber());
+                System.exit(0);
+            }
+            if (l.getLine().startsWith("if "))
+            {
+                Statement s = new IfStatement(this);
+                pos = s.parseStatement(items, pos);
+                continue;
+            }
+            if (l.getLine().startsWith("while "))
+            {
+                Statement s = new WhileStatement(this);
+                pos = s.parseStatement(items, pos);
+                continue;
+            }
+            if (l.getLine().startsWith("dowhile "))
+            {
+                Statement s = new WhileStatement(this);
+                pos = s.parseStatement(items, pos);
+                continue;
             }
         }
-    }
-
-    private void outputIndentLevel(String s, int lineNumber)
-    {
-        if (lineNumber >= 0)
-        {
-            System.out.print(lineNumber);
-        }
-        System.out.print("\t");
-        for (int i = 0; i < indentLevel; i++)
-        {
-            System.out.print("\t");
-        }
-        System.out.println(s);
     }
 }

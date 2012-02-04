@@ -1,4 +1,4 @@
-package brainfuckcompiler.compiler;
+package brainfuckcompiler.compiler.program;
 
 import brainfuckcompiler.statics;
 

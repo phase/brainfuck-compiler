@@ -178,12 +178,12 @@ public class ExpressionGenerator
      * @param s
      * @return
      */
-    public static int generateCodeForExpression(String s)
+    public static Node generateExpression(String s)
     {
-        return generateCodeForPostfixExpression(convertInfixToPostfix(s));
+        return generatePostfixExpression(convertInfixToPostfix(s));
     }
 
-    private static int generateCodeForPostfixExpression(String[] tokens)
+    private static Node generatePostfixExpression(String[] tokens)
     {
         Node tree = Operators.createNode(tokens[tokens.length - 1]);
         if (tree.populate(tokens, tokens.length - 2) != -1)
@@ -191,6 +191,6 @@ public class ExpressionGenerator
             System.out.println("Error in expression. Not all detected tokens were used. Please recheck Expression");
             System.exit(0);
         }
-        return tree.generateBF();
+        return tree;
     }
 }
