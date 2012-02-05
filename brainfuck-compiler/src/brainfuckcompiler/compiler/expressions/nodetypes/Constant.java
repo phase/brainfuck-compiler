@@ -12,6 +12,11 @@ public class Constant extends Node
 
     int value = 0;
 
+    public Constant(int lineNumber)
+    {
+        super(lineNumber);
+    }
+
     /**
      *
      * @param tokens

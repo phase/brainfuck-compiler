@@ -10,9 +10,10 @@ import brainfuckcompiler.compiler.expressions.operators.Operators;
 public abstract class UnaryOperator extends Node
 {
 
-    /**
-     *
-     */
+    public UnaryOperator(int lineNumber)
+    {
+        super(lineNumber);
+    }
     public Node operand;
 
     /**
@@ -23,7 +24,8 @@ public abstract class UnaryOperator extends Node
      */
     public int populate(String[] tokens, int index)
     {
-        operand = Operators.createNode(tokens[index--]);
+        operand = Operators.createNode(tokens[index--], lineNumber);
+        operand.setParentNode(this);
         index = operand.populate(tokens, index);
         return index;
     }

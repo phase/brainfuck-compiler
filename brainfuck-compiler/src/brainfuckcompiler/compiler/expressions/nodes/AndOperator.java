@@ -13,8 +13,9 @@ public class AndOperator extends BinaryOperator
     /**
      *
      */
-    public AndOperator()
+    public AndOperator(int lineNumber)
     {
+        super(lineNumber);
         returnsBoolean = true;
     }
 

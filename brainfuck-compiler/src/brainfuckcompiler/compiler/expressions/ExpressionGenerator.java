@@ -178,14 +178,14 @@ public class ExpressionGenerator
      * @param s
      * @return
      */
-    public static Node generateExpression(String s)
+    public static Node generateExpression(String s, int lineNumber)
     {
-        return generatePostfixExpression(convertInfixToPostfix(s));
+        return generatePostfixExpression(convertInfixToPostfix(s), lineNumber);
     }
 
-    private static Node generatePostfixExpression(String[] tokens)
+    private static Node generatePostfixExpression(String[] tokens, int lineNumber)
     {
-        Node tree = Operators.createNode(tokens[tokens.length - 1]);
+        Node tree = Operators.createNode(tokens[tokens.length - 1], lineNumber);
         if (tree.populate(tokens, tokens.length - 2) != -1)
         {
             System.out.println("Error in expression. Not all detected tokens were used. Please recheck Expression");

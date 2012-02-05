@@ -88,67 +88,67 @@ public class Operators
      * @param token
      * @return
      */
-    public static Node createNode(String token)
+    public static Node createNode(String token, int lineNumber)
     {
         if (token.equals("*"))
         {
-            return new MultiplyOperator();
+            return new MultiplyOperator(lineNumber);
         }
         if (token.equals("/"))
         {
-            return new DivideOperator();
+            return new DivideOperator(lineNumber);
         }
         if (token.equals("+"))
         {
-            return new AddOperator();
+            return new AddOperator(lineNumber);
         }
         if (token.equals("-"))
         {
-            return new SubtractOperator();
+            return new SubtractOperator(lineNumber);
         }
         if (token.equals("=="))
         {
-            return new EqualityOperator();
+            return new EqualityOperator(lineNumber);
         }
         if (token.equals("!"))
         {
-            return new NotOperator();
+            return new NotOperator(lineNumber);
         }
         if (token.equals("&&"))
         {
-            return new AndOperator();
+            return new AndOperator(lineNumber);
         }
         if (token.equals("||"))
         {
-            return new OrOperator();
+            return new OrOperator(lineNumber);
         }
         if (token.equals("<"))
         {
-            return new SmallerThanOperator();
+            return new SmallerThanOperator(lineNumber);
         }
         if (token.equals(">"))
         {
-            return new LargerThanOperator();
+            return new LargerThanOperator(lineNumber);
         }
         if (token.equals("<="))
         {
-            return new SmallerThanOrEqualOperator();
+            return new SmallerThanOrEqualOperator(lineNumber);
         }
         if (token.equals(">="))
         {
-            return new LargerThanOrEqualOperator();
+            return new LargerThanOrEqualOperator(lineNumber);
         }
         if (token.equals("!="))
         {
-            return new NonEqualityOperator();
+            return new NonEqualityOperator(lineNumber);
         }
         if (token.equals("%"))
         {
-            return new ModuloOperator();
+            return new ModuloOperator(lineNumber);
         }
         if (token.equals("^"))
         {
-            return new ExponentiationOperator();
+            return new ExponentiationOperator(lineNumber);
         }
         if (token.equals("="))
         {
@@ -168,7 +168,7 @@ public class Operators
         }
         if (token.matches("[0-9]+"))
         {
-            return new Constant();
+            return new Constant(lineNumber);
         }
         return null;
     }

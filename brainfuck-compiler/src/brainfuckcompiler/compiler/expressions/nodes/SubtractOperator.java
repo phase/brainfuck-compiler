@@ -10,6 +10,11 @@ import brainfuckcompiler.statics;
 public class SubtractOperator extends BinaryOperator
 {
 
+    public SubtractOperator(int lineNumber)
+    {
+        super(lineNumber);
+    }
+
     /**
      *
      * @param t

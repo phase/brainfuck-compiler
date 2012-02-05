@@ -2,6 +2,7 @@ package brainfuckcompiler.compiler.program.statements;
 
 import brainfuckcompiler.compiler.expressions.ExpressionGenerator;
 import brainfuckcompiler.compiler.expressions.Node;
+import brainfuckcompiler.compiler.expressions.nodes.AssignmentOperator;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.compiler.program.structure.Item;
 import brainfuckcompiler.compiler.program.structure.Line;
@@ -22,7 +23,12 @@ public class IfStatement extends Statement
     public int parseStatement(ArrayList<Item> items, int currentPosition)
     {
         Line l = (Line) items.get(currentPosition);
-        expression = ExpressionGenerator.generateExpression(l.getLine().substring(3));
+        expression = ExpressionGenerator.generateExpression(l.getLine().substring(3), l.getLineNumber());
+        if (expression instanceof AssignmentOperator)
+        {
+            System.out.println("Cannot assign a value to a variable on line " + l.getLineNumber());
+            System.exit(0);
+        }
         currentPosition++;
         if (currentPosition < items.size())
         {

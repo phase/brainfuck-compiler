@@ -10,6 +10,11 @@ import brainfuckcompiler.statics;
 public class MultiplyOperator extends BinaryOperator
 {
 
+    public MultiplyOperator(int lineNumber)
+    {
+        super(lineNumber);
+    }
+
     /**
      *
      * @param t

@@ -13,8 +13,9 @@ public class EqualityOperator extends BinaryOperator
     /**
      *
      */
-    public EqualityOperator()
+    public EqualityOperator(int lineNumber)
     {
+        super(lineNumber);
         returnsBoolean = true;
     }
 

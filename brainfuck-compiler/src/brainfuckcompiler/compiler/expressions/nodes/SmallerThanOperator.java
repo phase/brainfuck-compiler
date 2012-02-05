@@ -13,8 +13,9 @@ public class SmallerThanOperator extends BinaryOperator
     /**
      *
      */
-    public SmallerThanOperator()
+    public SmallerThanOperator(int lineNumber)
     {
+        super(lineNumber);
         returnsBoolean = true;
     }
 

@@ -10,6 +10,11 @@ import brainfuckcompiler.statics;
 public class DivideOperator extends BinaryOperator
 {
 
+    public DivideOperator(int lineNumber)
+    {
+        super(lineNumber);
+    }
+
     /**
      *
      * @param t

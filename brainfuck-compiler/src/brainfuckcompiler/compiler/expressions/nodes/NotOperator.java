@@ -13,8 +13,9 @@ public class NotOperator extends UnaryOperator
     /**
      *
      */
-    public NotOperator()
+    public NotOperator(int lineNumber)
     {
+        super(lineNumber);
         returnsBoolean = true;
     }
 

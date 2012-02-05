@@ -13,8 +13,9 @@ public class NonEqualityOperator extends BinaryOperator
     /**
      *
      */
-    public NonEqualityOperator()
+    public NonEqualityOperator(int lineNumber)
     {
+        super(lineNumber);
         returnsBoolean = true;
     }
 

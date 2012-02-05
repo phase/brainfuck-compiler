@@ -13,8 +13,9 @@ public class OrOperator extends BinaryOperator
     /**
      *
      */
-    public OrOperator()
+    public OrOperator(int lineNumber)
     {
+        super(lineNumber);
         returnsBoolean = true;
     }
 

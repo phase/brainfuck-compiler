@@ -1,9 +1,6 @@
 package brainfuckcompiler.compiler.program.structure;
 
-import brainfuckcompiler.compiler.program.statements.BlockStatement;
-import brainfuckcompiler.compiler.program.statements.IfStatement;
-import brainfuckcompiler.compiler.program.statements.Statement;
-import brainfuckcompiler.compiler.program.statements.WhileStatement;
+import brainfuckcompiler.compiler.program.statements.*;
 import java.util.ArrayList;
 
 public class Block extends Item
@@ -82,7 +79,7 @@ public class Block extends Item
             }
             if (l.getLine().startsWith("dowhile "))
             {
-                Statement s = new WhileStatement(this);
+                Statement s = new DowhileStatement(this);
                 pos = s.parseStatement(items, pos);
                 continue;
             }

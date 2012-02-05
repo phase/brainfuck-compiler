@@ -13,8 +13,9 @@ public class LargerThanOrEqualOperator extends BinaryOperator
     /**
      *
      */
-    public LargerThanOrEqualOperator()
+    public LargerThanOrEqualOperator(int lineNumber)
     {
+        super(lineNumber);
         returnsBoolean = true;
     }
 
