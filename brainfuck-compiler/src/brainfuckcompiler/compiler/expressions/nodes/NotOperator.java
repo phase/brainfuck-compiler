@@ -1,6 +1,7 @@
 package brainfuckcompiler.compiler.expressions.nodes;
 
 import brainfuckcompiler.compiler.expressions.nodetypes.UnaryOperator;
+import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.statics;
 
 /**
@@ -13,9 +14,9 @@ public class NotOperator extends UnaryOperator
     /**
      *
      */
-    public NotOperator(int lineNumber)
+    public NotOperator(int lineNumber, Block parentBlock)
     {
-        super(lineNumber);
+        super(lineNumber, parentBlock);
         returnsBoolean = true;
     }
 

@@ -22,7 +22,7 @@ public class WhileStatement extends Statement
     public int parseStatement(ArrayList<Item> items, int currentPosition)
     {
         Line l = (Line) items.get(currentPosition);
-        expression = ExpressionGenerator.generateExpression(l.getLine().substring(6), l.getLineNumber());
+        expression = ExpressionGenerator.generateExpression(l.getLine().substring(6), l.getLineNumber(), parentBlock);
         if (expression instanceof AssignmentOperator)
         {
             System.out.println("Cannot assign a value to a variable on line " + l.getLineNumber());

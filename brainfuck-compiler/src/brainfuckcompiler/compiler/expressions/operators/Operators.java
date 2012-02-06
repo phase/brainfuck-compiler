@@ -3,6 +3,7 @@ package brainfuckcompiler.compiler.expressions.operators;
 import brainfuckcompiler.compiler.expressions.Node;
 import brainfuckcompiler.compiler.expressions.nodes.*;
 import brainfuckcompiler.compiler.expressions.nodetypes.Constant;
+import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.statics;
 import java.util.Arrays;
 import java.util.regex.Pattern;
@@ -88,67 +89,67 @@ public class Operators
      * @param token
      * @return
      */
-    public static Node createNode(String token, int lineNumber)
+    public static Node createNode(String token, int lineNumber, Block parentBlock)
     {
         if (token.equals("*"))
         {
-            return new MultiplyOperator(lineNumber);
+            return new MultiplyOperator(lineNumber, parentBlock);
         }
         if (token.equals("/"))
         {
-            return new DivideOperator(lineNumber);
+            return new DivideOperator(lineNumber, parentBlock);
         }
         if (token.equals("+"))
         {
-            return new AddOperator(lineNumber);
+            return new AddOperator(lineNumber, parentBlock);
         }
         if (token.equals("-"))
         {
-            return new SubtractOperator(lineNumber);
+            return new SubtractOperator(lineNumber, parentBlock);
         }
         if (token.equals("=="))
         {
-            return new EqualityOperator(lineNumber);
+            return new EqualityOperator(lineNumber, parentBlock);
         }
         if (token.equals("!"))
         {
-            return new NotOperator(lineNumber);
+            return new NotOperator(lineNumber, parentBlock);
         }
         if (token.equals("&&"))
         {
-            return new AndOperator(lineNumber);
+            return new AndOperator(lineNumber, parentBlock);
         }
         if (token.equals("||"))
         {
-            return new OrOperator(lineNumber);
+            return new OrOperator(lineNumber, parentBlock);
         }
         if (token.equals("<"))
         {
-            return new SmallerThanOperator(lineNumber);
+            return new SmallerThanOperator(lineNumber, parentBlock);
         }
         if (token.equals(">"))
         {
-            return new LargerThanOperator(lineNumber);
+            return new LargerThanOperator(lineNumber, parentBlock);
         }
         if (token.equals("<="))
         {
-            return new SmallerThanOrEqualOperator(lineNumber);
+            return new SmallerThanOrEqualOperator(lineNumber, parentBlock);
         }
         if (token.equals(">="))
         {
-            return new LargerThanOrEqualOperator(lineNumber);
+            return new LargerThanOrEqualOperator(lineNumber, parentBlock);
         }
         if (token.equals("!="))
         {
-            return new NonEqualityOperator(lineNumber);
+            return new NonEqualityOperator(lineNumber, parentBlock);
         }
         if (token.equals("%"))
         {
-            return new ModuloOperator(lineNumber);
+            return new ModuloOperator(lineNumber, parentBlock);
         }
         if (token.equals("^"))
         {
-            return new ExponentiationOperator(lineNumber);
+            return new ExponentiationOperator(lineNumber, parentBlock);
         }
         if (token.equals("="))
         {
@@ -168,7 +169,7 @@ public class Operators
         }
         if (token.matches("[0-9]+"))
         {
-            return new Constant(lineNumber);
+            return new Constant(lineNumber, parentBlock);
         }
         return null;
     }

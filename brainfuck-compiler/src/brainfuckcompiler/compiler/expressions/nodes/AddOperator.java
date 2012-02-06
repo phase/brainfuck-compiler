@@ -1,6 +1,7 @@
 package brainfuckcompiler.compiler.expressions.nodes;
 
 import brainfuckcompiler.compiler.expressions.nodetypes.BinaryOperator;
+import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.statics;
 
 /**
@@ -10,9 +11,9 @@ import brainfuckcompiler.statics;
 public class AddOperator extends BinaryOperator
 {
 
-    public AddOperator(int lineNumber)
+    public AddOperator(int lineNumber, Block parentBlock)
     {
-        super(lineNumber);
+        super(lineNumber, parentBlock);
     }
 
     /**

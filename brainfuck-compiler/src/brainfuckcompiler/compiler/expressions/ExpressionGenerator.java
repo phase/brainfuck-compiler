@@ -2,6 +2,7 @@ package brainfuckcompiler.compiler.expressions;
 
 import brainfuckcompiler.compiler.expressions.operators.Operator;
 import brainfuckcompiler.compiler.expressions.operators.Operators;
+import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.statics;
 import java.util.ArrayList;
 import java.util.Stack;
@@ -178,14 +179,14 @@ public class ExpressionGenerator
      * @param s
      * @return
      */
-    public static Node generateExpression(String s, int lineNumber)
+    public static Node generateExpression(String s, int lineNumber, Block parentBlock)
     {
-        return generatePostfixExpression(convertInfixToPostfix(s), lineNumber);
+        return generatePostfixExpression(convertInfixToPostfix(s), lineNumber, parentBlock);
     }
 
-    private static Node generatePostfixExpression(String[] tokens, int lineNumber)
+    private static Node generatePostfixExpression(String[] tokens, int lineNumber, Block parentBlock)
     {
-        Node tree = Operators.createNode(tokens[tokens.length - 1], lineNumber);
+        Node tree = Operators.createNode(tokens[tokens.length - 1], lineNumber, parentBlock);
         if (tree.populate(tokens, tokens.length - 2) != -1)
         {
             System.out.println("Error in expression. Not all detected tokens were used. Please recheck Expression");

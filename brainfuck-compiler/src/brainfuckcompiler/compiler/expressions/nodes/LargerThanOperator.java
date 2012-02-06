@@ -1,6 +1,7 @@
 package brainfuckcompiler.compiler.expressions.nodes;
 
 import brainfuckcompiler.compiler.expressions.nodetypes.BinaryOperator;
+import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.statics;
 
 /**
@@ -13,9 +14,9 @@ public class LargerThanOperator extends BinaryOperator
     /**
      *
      */
-    public LargerThanOperator(int lineNumber)
+    public LargerThanOperator(int lineNumber, Block parentBlock)
     {
-        super(lineNumber);
+        super(lineNumber, parentBlock);
         returnsBoolean = true;
     }
 

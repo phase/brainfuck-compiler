@@ -1,16 +1,20 @@
 package brainfuckcompiler.compiler.expressions;
 
+import brainfuckcompiler.compiler.program.structure.Block;
+
 public abstract class Node
 {
 
     protected Node parentNode = null;
+    protected Block parentBlock;
     public boolean returnsBoolean = false;
     protected boolean stored = false;
     protected int lineNumber;
 
-    public Node(int lineNumber)
+    public Node(int lineNumber, Block parentBlock)
     {
         this.lineNumber = lineNumber;
+        this.parentBlock = parentBlock;
     }
 
     public abstract int generateBF();

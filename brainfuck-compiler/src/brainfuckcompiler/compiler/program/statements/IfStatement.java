@@ -23,7 +23,7 @@ public class IfStatement extends Statement
     public int parseStatement(ArrayList<Item> items, int currentPosition)
     {
         Line l = (Line) items.get(currentPosition);
-        expression = ExpressionGenerator.generateExpression(l.getLine().substring(3), l.getLineNumber());
+        expression = ExpressionGenerator.generateExpression(l.getLine().substring(3), l.getLineNumber(), parentBlock);
         if (expression instanceof AssignmentOperator)
         {
             System.out.println("Cannot assign a value to a variable on line " + l.getLineNumber());

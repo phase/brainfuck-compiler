@@ -1,6 +1,7 @@
 package brainfuckcompiler.compiler.expressions.nodetypes;
 
 import brainfuckcompiler.compiler.expressions.Node;
+import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.statics;
 
 /**
@@ -12,9 +13,9 @@ public class Constant extends Node
 
     int value = 0;
 
-    public Constant(int lineNumber)
+    public Constant(int lineNumber, Block parentBlock)
     {
-        super(lineNumber);
+        super(lineNumber, parentBlock);
     }
 
     /**

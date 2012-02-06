@@ -2,6 +2,7 @@ package brainfuckcompiler.compiler.expressions.nodetypes;
 
 import brainfuckcompiler.compiler.expressions.Node;
 import brainfuckcompiler.compiler.expressions.operators.Operators;
+import brainfuckcompiler.compiler.program.structure.Block;
 
 /**
  *
@@ -10,9 +11,9 @@ import brainfuckcompiler.compiler.expressions.operators.Operators;
 public abstract class BinaryOperator extends Node
 {
 
-    public BinaryOperator(int lineNumber)
+    public BinaryOperator(int lineNumber, Block parentBlock)
     {
-        super(lineNumber);
+        super(lineNumber, parentBlock);
     }
     /**
      *
@@ -27,10 +28,10 @@ public abstract class BinaryOperator extends Node
      */
     public int populate(String[] tokens, int index)
     {
-        right = Operators.createNode(tokens[index--], lineNumber);
+        right = Operators.createNode(tokens[index--], lineNumber, parentBlock);
         right.setParentNode(this);
         index = right.populate(tokens, index);
-        left = Operators.createNode(tokens[index--], lineNumber);
+        left = Operators.createNode(tokens[index--], lineNumber, parentBlock);
         left.setParentNode(this);
         index = left.populate(tokens, index);
         return index;
