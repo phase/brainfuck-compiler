@@ -28,6 +28,7 @@ public class AssignmentOperator extends BinaryOperator
             int address = right.generateBF();
             statics.t.clear(v.getMemoryPosition());
             statics.t.move(v.getMemoryPosition(), address);
+            statics.t.free(address);
         }
         return -1;
     }

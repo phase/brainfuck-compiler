@@ -6,6 +6,7 @@ import brainfuckcompiler.compiler.expressions.nodes.AssignmentOperator;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.compiler.program.structure.Item;
 import brainfuckcompiler.compiler.program.structure.Line;
+import brainfuckcompiler.statics;
 import java.util.ArrayList;
 
 public class IfStatement extends Statement
@@ -15,9 +16,9 @@ public class IfStatement extends Statement
     Block elseBlock = null;
     Node expression;
 
-    public IfStatement(Block parentBlock)
+    public IfStatement(Block parentBlock, int lineNumber)
     {
-        super(parentBlock);
+        super(parentBlock, lineNumber);
     }
 
     public int parseStatement(ArrayList<Item> items, int currentPosition)
@@ -90,5 +91,42 @@ public class IfStatement extends Statement
             }
         }
         return currentPosition;
+    }
+
+    @Override
+    public void generate()
+    {
+        if (elseBlock == null)
+        {
+            generateIf();
+        } else
+        {
+            generateIfElse();
+        }
+    }
+
+    private void generateIf()
+    {
+        int address = expression.generateBF();
+        statics.t.loop(address);
+        ifBlock.generate();
+        statics.t.celoop(address);
+        statics.t.free(address);
+    }
+
+    private void generateIfElse()
+    {
+        int x = (expression.returnsBoolean ? expression.generateBF() : statics.t.toBoolean(expression.generateBF()));
+        int elseAddress = statics.t.alloc();
+        statics.t.plus(elseAddress, 1);
+        statics.t.loop(x);
+        statics.t.clear(elseAddress);
+        ifBlock.generate();
+        statics.t.celoop(x);
+        statics.t.free(x);
+        statics.t.loop(elseAddress);
+        elseBlock.generate();
+        statics.t.celoop(elseAddress);
+        statics.t.free(elseAddress);
     }
 }

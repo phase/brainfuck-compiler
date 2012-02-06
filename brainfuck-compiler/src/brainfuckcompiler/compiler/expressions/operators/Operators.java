@@ -3,6 +3,7 @@ package brainfuckcompiler.compiler.expressions.operators;
 import brainfuckcompiler.compiler.expressions.Node;
 import brainfuckcompiler.compiler.expressions.nodes.*;
 import brainfuckcompiler.compiler.expressions.nodetypes.ConstantNode;
+import brainfuckcompiler.compiler.expressions.nodetypes.VariableNode;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.statics;
 import java.util.Arrays;
@@ -153,7 +154,7 @@ public class Operators
         }
         if (token.equals("="))
         {
-            return null;
+            return new AssignmentOperator(lineNumber, parentBlock);
         }
         if (token.matches("[_a-zA-Z][_0-9a-zA-Z]*\\[.*\\]"))
         {
@@ -165,7 +166,7 @@ public class Operators
         }
         if (token.matches("[_a-zA-Z][_0-9a-zA-Z]*"))
         {
-            return null;
+            return new VariableNode(lineNumber, parentBlock);
         }
         if (token.matches("[0-9]+"))
         {

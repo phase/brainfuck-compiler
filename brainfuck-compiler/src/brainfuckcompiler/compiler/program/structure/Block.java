@@ -1,8 +1,8 @@
 package brainfuckcompiler.compiler.program.structure;
 
+import brainfuckcompiler.compiler.program.Array;
 import brainfuckcompiler.compiler.program.Variable;
 import brainfuckcompiler.compiler.program.statements.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Block extends Item
@@ -67,7 +67,7 @@ public class Block extends Item
             Item i = items.get(pos);
             if (i instanceof Block)
             {
-                Statement s = new BlockStatement((Block) i, this);
+                Statement s = new BlockStatement((Block) i, this, i.getLineNumber());
                 statements.add(s);
                 pos++;
                 continue;
@@ -78,24 +78,49 @@ public class Block extends Item
                 System.out.println("else without an if found at line " + l.getLineNumber());
                 System.exit(0);
             }
+            if (l.getLine().startsWith("'"))
+            {
+                pos++;
+                continue;
+            }
             if (l.getLine().startsWith("if "))
             {
-                Statement s = new IfStatement(this);
+                Statement s = new IfStatement(this, l.getLineNumber());
                 pos = s.parseStatement(items, pos);
+                statements.add(s);
                 continue;
             }
             if (l.getLine().startsWith("while "))
             {
-                Statement s = new WhileStatement(this);
+                Statement s = new WhileStatement(this, l.getLineNumber());
                 pos = s.parseStatement(items, pos);
+                statements.add(s);
                 continue;
             }
             if (l.getLine().startsWith("dowhile "))
             {
-                Statement s = new DowhileStatement(this);
+                Statement s = new DowhileStatement(this, l.getLineNumber());
                 pos = s.parseStatement(items, pos);
+                statements.add(s);
                 continue;
             }
+            if (l.getLine().startsWith("declare "))
+            {
+                Statement s = new DeclareStatement(this, l.getLineNumber());
+                pos = s.parseStatement(items, pos);
+                statements.add(s);
+                continue;
+            }
+            if (l.getLine().equals("debug"))
+            {
+                Statement s = new DebugStatement(this, l.getLineNumber());
+                pos = s.parseStatement(items, pos);
+                statements.add(s);
+                continue;
+            }
+            Statement s = new AssignmentStatement(this, l.getLineNumber());
+            pos = s.parseStatement(items, pos);
+            statements.add(s);
         }
     }
 
@@ -107,5 +132,24 @@ public class Block extends Item
     public ArrayList<Array> getArrayScope()
     {
         return arrayScope;
+    }
+
+    public void generate()
+    {
+        for (int i = 0; i < statements.size(); i++)
+        {
+            Statement s = statements.get(i);
+            s.generate();
+        }
+        while (variableScope.size() > 0)
+        {
+            Variable v = variableScope.remove(variableScope.size() - 1);
+            v.free();
+        }
+        while (arrayScope.size() > 0)
+        {
+            Array a = arrayScope.remove(arrayScope.size() - 1);
+            a.free();
+        }
     }
 }

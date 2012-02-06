@@ -6,6 +6,7 @@ import brainfuckcompiler.compiler.expressions.nodes.AssignmentOperator;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.compiler.program.structure.Item;
 import brainfuckcompiler.compiler.program.structure.Line;
+import brainfuckcompiler.statics;
 import java.util.ArrayList;
 
 public class WhileStatement extends Statement
@@ -14,9 +15,9 @@ public class WhileStatement extends Statement
     Node expression;
     Block loopBlock;
 
-    public WhileStatement(Block parentBlock)
+    public WhileStatement(Block parentBlock, int lineNumber)
     {
-        super(parentBlock);
+        super(parentBlock, lineNumber);
     }
 
     public int parseStatement(ArrayList<Item> items, int currentPosition)
@@ -54,5 +55,19 @@ public class WhileStatement extends Statement
             System.exit(0);
         }
         return currentPosition;
+    }
+
+    @Override
+    public void generate()
+    {
+        int address = expression.generateBF();
+        statics.t.loop(address);
+        statics.t.clear(address);
+        loopBlock.generate();
+        int address2 = expression.generateBF();
+        statics.t.move(address, address2);
+        statics.t.free(address2);
+        statics.t.teloop(address);
+        statics.t.free(address);
     }
 }

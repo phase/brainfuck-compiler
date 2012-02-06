@@ -8,23 +8,32 @@ import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.compiler.program.structure.Item;
 import brainfuckcompiler.compiler.program.structure.Line;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 public class Main
 {
 
-    /**
-     *
-     * @param args
-     */
     public static void main(String[] args)
     {
         initializeCompiler();
-        //ExpressionGenerator.generateCodeForExpression("!!((2*2==4)&&(2*2!=5)&&(7/3==2)&&(8%3==2)&&(7+5==12)&&(7-5==2)&&(3<4)&&!(4<4)&&!(5<4)&&(3<=4)&&(4<=4)&&!(5<=4)&&!(3>4)&&!(4>4)&&(5>4)&&!(3>=4)&&(4>=4)&&(5>=4)&&(5==5)&&!(5==6)&&!(5!=5)&&(5!=6)&&((1==1)&&(1==1))&&!((1==1)&&(1==0))&&!((1==0)&&(1==1))&&!((1==0)&&(1==0))&&((1==1)||(1==1))&&((1==1)||(1==0))&&((1==0)||(1==1))&&!((1==0)||(1==0))&&!(!(1==1))&&(!(1==0))&&(2^7==128)&&(2^2^2==16))");
-        //ExpressionGenerator.generateCodeForExpression("!!((2*2==4)&&(2*2!=5)&&(7/3==2)&&(8%3==2)&&(7+5==12)&&(7-5==2)&&(3<4)&&!(4<4)&&!(5<4)&&(3<=4)&&(4<=4)&&!(5<=4)&&!(3>4)&&!(4>4)&&(5>4)&&!(3>=4)&&(4>=4)&&(5>=4)&&(5==5)&&!(5==6)&&!(5!=5)&&(5!=6)&&((1==1)&&(1==1))&&!((1==1)&&(1==0))&&!((1==0)&&(1==1))&&!((1==0)&&(1==0))&&((1==1)||(1==1))&&((1==1)||(1==0))&&((1==0)||(1==1))&&!((1==0)||(1==0))&&!(!(1==1))&&(!(1==0))&&(2^7==pow(calc(1+ 1),_calculateSeven()))&&(xyz^2^array[2+abc]==16))");
-        //System.out.println(statics.t.getB());
+        long t0 = new GregorianCalendar().getTimeInMillis();
         System.out.println("Parsing code blocks");
         Block b = createBlockFromFile(args[0]);
-        System.out.println("Successful");
+        System.out.println("Generating statements");
+        b.generateStatements();
+        System.out.println("Generating brainfuck code");
+        b.generate();
+        System.out.println("Successful in " + (new GregorianCalendar().getTimeInMillis() - t0) + "ms and used " + (statics.t.getLargestMemorylocation() + 1) + " memory location/s");
+        String s = statics.t.getB().toString();
+        for (int i = 0; i < s.length(); i++)
+        {
+            if (i > 0 && i % 80 == 0)
+            {
+                System.out.println();
+            }
+            System.out.print(s.charAt(i));
+        }
+        System.out.println();
     }
 
     private static void initializeCompiler()

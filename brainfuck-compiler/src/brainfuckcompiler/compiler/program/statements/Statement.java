@@ -8,11 +8,15 @@ public abstract class Statement
 {
 
     Block parentBlock;
+    int lineNumber;
 
-    public Statement(Block parentBlock)
+    public Statement(Block parentBlock, int LineNumber)
     {
         this.parentBlock = parentBlock;
+        this.lineNumber = lineNumber;
     }
 
     public abstract int parseStatement(ArrayList<Item> items, int currentPosition);
+
+    public abstract void generate();
 }

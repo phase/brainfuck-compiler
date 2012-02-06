@@ -523,25 +523,33 @@ public class BrainfuckTools
         return x;
     }
 
-    /**
-     *
-     * @param x
-     * @param y
-     * @return
-     */
     public int divide(int x, int y)
     {
-        int z = alloc();
-        int t = allocContiguous(6);
-        free(z);
-        move(t, x);
-        copy(t + 1, y);
-        to(t);
-        b.append("[->-[>+>>]>[+[-<+>]>+>>]<<<<<]");
-        move(x, t + 3);
-        clear(t + 1);
-        clear(t + 2);
-        freeContiguous(t, 6);
+        int[] temp = alloc(4);
+        move(temp[0], x);
+        loop(temp[0]);
+        copy(temp[1], y, temp[2]);
+        loop(temp[1]);
+        inc(temp[2]);
+        dec(temp[0]);
+        loop(temp[0]);
+        clear(temp[2]);
+        inc(temp[3]);
+        deloop(temp[0]);
+        loop(temp[3]);
+        inc(temp[0]);
+        deloop(temp[3]);
+        loop(temp[2]);
+        dec(temp[1]);
+        loop(temp[1]);
+        dec(x);
+        celoop(temp[1]);
+        inc(temp[1]);
+        deloop(temp[2]);
+        deloop(temp[1]);
+        inc(x);
+        teloop(temp[0]);
+        free(temp);
         return x;
     }
 
@@ -553,17 +561,11 @@ public class BrainfuckTools
      */
     public int mod(int x, int y)
     {
-        int z = alloc();
-        int t = allocContiguous(6);
-        free(z);
-        move(t, x);
-        copy(t + 1, y);
-        to(t);
-        b.append("[->-[>+>>]>[+[-<+>]>+>>]<<<<<]");
-        move(x, t + 2);
-        clear(t + 1);
-        clear(t + 3);
-        freeContiguous(t, 6);
+        int temp = copy(x);
+        divide(temp, y);
+        multiply(temp, y);
+        subtract(x, temp);
+        free(temp);
         return x;
     }
 

@@ -1,29 +1,30 @@
 package brainfuckcompiler.compiler.program.statements;
 
+import brainfuckcompiler.compiler.expressions.Node;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.compiler.program.structure.Item;
+import brainfuckcompiler.statics;
 import java.util.ArrayList;
 
-public class BlockStatement extends Statement
+public class DebugStatement extends Statement
 {
 
-    private Block block;
+    Node expression = null;
+    String variableName;
 
-    public BlockStatement(Block block, Block parentBlock, int lineNumber)
+    public DebugStatement(Block parentBlock, int lineNumber)
     {
         super(parentBlock, lineNumber);
-        this.block = block;
-        this.block.generateStatements();
     }
 
     public int parseStatement(ArrayList<Item> items, int currentPosition)
     {
-        return currentPosition;
+        return currentPosition + 1;
     }
 
     @Override
     public void generate()
     {
-        block.generate();
+        statics.t.append("#");
     }
 }

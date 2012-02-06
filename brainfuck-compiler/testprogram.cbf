@@ -1,13 +1,11 @@
-function gcd(a,b)
-	while b!=0
+declare a,4
+declare b,6
+declare mul
+if !(a==0||b==0)
+	mul=a*b
+	while b>0
 		declare t,b
-		b=a%b
+		b=a-a/b*b
 		a=t
-	gcd=a
-
-function lcm(a,b)
-	lcm=(a*b)/gcd(a,b)
-
-declare a,3
-declare b,8
-declare c,lcm(a,b)
+	mul=mul/a
+debug
