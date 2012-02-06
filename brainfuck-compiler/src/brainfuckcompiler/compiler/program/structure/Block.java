@@ -23,23 +23,30 @@ public class Block extends Item
             int blockLineNumber = item.getLineNumber();
             if (currentIndentLevel > this.getIndentLevel())
             {
-                int amtitems = 1;
-                for (int j = i + 1; j < items.size(); j++)
+                if (currentIndentLevel == (this.getIndentLevel() + 1))
                 {
-                    if (items.get(j).getIndentLevel() >= currentIndentLevel)
+                    int amtitems = 1;
+                    for (int j = i + 1; j < items.size(); j++)
                     {
-                        amtitems++;
-                    } else
-                    {
-                        break;
+                        if (items.get(j).getIndentLevel() >= currentIndentLevel)
+                        {
+                            amtitems++;
+                        } else
+                        {
+                            break;
+                        }
                     }
-                }
-                ArrayList<Item> newBlockItems = new ArrayList<Item>();
-                for (int j = 0; j < amtitems; j++)
+                    ArrayList<Item> newBlockItems = new ArrayList<Item>();
+                    for (int j = 0; j < amtitems; j++)
+                    {
+                        newBlockItems.add(items.remove(i));
+                    }
+                    items.add(i, new Block(newBlockItems, currentIndentLevel, this, blockLineNumber));
+                } else
                 {
-                    newBlockItems.add(items.remove(i));
+                    System.out.println("Invalid indent level at line " + blockLineNumber);
+                    System.exit(0);
                 }
-                items.add(i, new Block(newBlockItems, currentIndentLevel, this, blockLineNumber));
             }
         }
         this.items = items;
