@@ -2,7 +2,7 @@ package brainfuckcompiler.compiler.expressions.operators;
 
 import brainfuckcompiler.compiler.expressions.Node;
 import brainfuckcompiler.compiler.expressions.nodes.*;
-import brainfuckcompiler.compiler.expressions.nodetypes.Constant;
+import brainfuckcompiler.compiler.expressions.nodetypes.ConstantNode;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.statics;
 import java.util.Arrays;
@@ -169,7 +169,7 @@ public class Operators
         }
         if (token.matches("[0-9]+"))
         {
-            return new Constant(lineNumber, parentBlock);
+            return new ConstantNode(lineNumber, parentBlock);
         }
         return null;
     }

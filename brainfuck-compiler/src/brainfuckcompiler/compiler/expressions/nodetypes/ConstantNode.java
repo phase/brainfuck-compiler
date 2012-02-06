@@ -8,12 +8,12 @@ import brainfuckcompiler.statics;
  *
  * @author vrighter
  */
-public class Constant extends Node
+public class ConstantNode extends Node
 {
 
     int value = 0;
 
-    public Constant(int lineNumber, Block parentBlock)
+    public ConstantNode(int lineNumber, Block parentBlock)
     {
         super(lineNumber, parentBlock);
     }

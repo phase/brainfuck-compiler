@@ -23,4 +23,10 @@ public class Variable
     {
         return memoryPosition;
     }
+
+    public void free()
+    {
+        statics.t.clear(memoryPosition);
+        statics.t.free(memoryPosition);
+    }
 }

@@ -1,13 +1,17 @@
 package brainfuckcompiler.compiler.program.structure;
 
+import brainfuckcompiler.compiler.program.Variable;
 import brainfuckcompiler.compiler.program.statements.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Block extends Item
 {
 
-    ArrayList<Item> items;
-    ArrayList<Statement> statements;
+    private ArrayList<Item> items;
+    private ArrayList<Statement> statements;
+    private ArrayList<Variable> variableScope;
+    private ArrayList<Array> arrayScope;
 
     public Block(ArrayList<Item> items, int indentLevel, Block parentBlock, int lineNumber)
     {
@@ -50,6 +54,8 @@ public class Block extends Item
             }
         }
         this.items = items;
+        variableScope = new ArrayList<Variable>();
+        arrayScope = new ArrayList<Array>();
     }
 
     public void generateStatements()
@@ -91,5 +97,15 @@ public class Block extends Item
                 continue;
             }
         }
+    }
+
+    public ArrayList<Variable> getVariableScope()
+    {
+        return variableScope;
+    }
+
+    public ArrayList<Array> getArrayScope()
+    {
+        return arrayScope;
     }
 }
