@@ -118,6 +118,13 @@ public class Block extends Item
                 statements.add(s);
                 continue;
             }
+            if (l.getLine().startsWith("dim "))
+            {
+                Statement s = new DimStatement(this, l.getLineNumber());
+                pos = s.parseStatement(items, pos);
+                statements.add(s);
+                continue;
+            }
             Statement s = new AssignmentStatement(this, l.getLineNumber());
             pos = s.parseStatement(items, pos);
             statements.add(s);
@@ -141,12 +148,12 @@ public class Block extends Item
             Statement s = statements.get(i);
             s.generate();
         }
-        while (variableScope.size() > 0)
+        while (!variableScope.isEmpty())
         {
             Variable v = variableScope.remove(variableScope.size() - 1);
             v.free();
         }
-        while (arrayScope.size() > 0)
+        while (!arrayScope.isEmpty())
         {
             Array a = arrayScope.remove(arrayScope.size() - 1);
             a.free();

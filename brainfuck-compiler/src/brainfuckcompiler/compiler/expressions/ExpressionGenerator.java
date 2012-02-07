@@ -189,7 +189,7 @@ public class ExpressionGenerator
         Node tree = Operators.createNode(tokens[tokens.length - 1], lineNumber, parentBlock);
         if (tree.populate(tokens, tokens.length - 2) != -1)
         {
-            System.out.println("Error in expression. Not all detected tokens were used. Please recheck Expression");
+            System.out.println("Error in expression. Not all detected tokens were used. Please recheck Expression on line " + lineNumber);
             System.exit(0);
         }
         return tree;

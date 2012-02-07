@@ -5,12 +5,19 @@ import brainfuckcompiler.statics;
 public class Array
 {
 
-    int mempos, size;
+    private int mempos, size;
+    private String name;
 
-    public Array(int s)
+    public Array(String name, int s)
     {
         size = s * 2 + 5;
         mempos = statics.t.allocContiguous(size);
+        this.name = name;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 
     public void free()
@@ -38,7 +45,8 @@ public class Array
     }
 
     /**
-     * Gets a value from the array. Assumes the destination cell is 0, preserves the value of pos
+     * Gets a value from the array. Assumes the destination cell is 0, preserves
+     * the value of pos
      *
      * @param pos The position to extract
      * @param dest The destination cell
