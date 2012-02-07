@@ -78,11 +78,6 @@ public class Block extends Item
                 System.out.println("else without an if found at line " + l.getLineNumber());
                 System.exit(0);
             }
-            if (l.getLine().startsWith("'"))
-            {
-                pos++;
-                continue;
-            }
             if (l.getLine().startsWith("if "))
             {
                 Statement s = new IfStatement(this, l.getLineNumber());

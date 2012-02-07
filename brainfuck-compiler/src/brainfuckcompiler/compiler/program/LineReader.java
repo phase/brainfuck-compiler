@@ -28,7 +28,8 @@ public class LineReader
 
     public int getIndentLevel()
     {
-        if (lastLine.trim().equals(""))
+        String s = lastLine.trim();
+        if ((s.length() == 0) || (s.charAt(0) == '\''))
         {
             return -1;
         }
