@@ -12,6 +12,7 @@ public class Block extends Item
     private ArrayList<Statement> statements;
     private ArrayList<Variable> variableScope;
     private ArrayList<Array> arrayScope;
+    private boolean subLock;
 
     public Block(ArrayList<Item> items, int indentLevel, Block parentBlock, int lineNumber)
     {
@@ -56,6 +57,7 @@ public class Block extends Item
         this.items = items;
         variableScope = new ArrayList<Variable>();
         arrayScope = new ArrayList<Array>();
+        subLock = false;
     }
 
     public void generateStatements()
@@ -78,27 +80,6 @@ public class Block extends Item
                 System.out.println("else without an if found at line " + l.getLineNumber());
                 System.exit(0);
             }
-            if (l.getLine().startsWith("if "))
-            {
-                Statement s = new IfStatement(this, l.getLineNumber());
-                pos = s.parseStatement(items, pos);
-                statements.add(s);
-                continue;
-            }
-            if (l.getLine().startsWith("while "))
-            {
-                Statement s = new WhileStatement(this, l.getLineNumber());
-                pos = s.parseStatement(items, pos);
-                statements.add(s);
-                continue;
-            }
-            if (l.getLine().startsWith("dowhile "))
-            {
-                Statement s = new DowhileStatement(this, l.getLineNumber());
-                pos = s.parseStatement(items, pos);
-                statements.add(s);
-                continue;
-            }
             if (l.getLine().startsWith("declare "))
             {
                 Statement s = new DeclareStatement(this, l.getLineNumber());
@@ -116,6 +97,76 @@ public class Block extends Item
             if (l.getLine().startsWith("dim "))
             {
                 Statement s = new DimStatement(this, l.getLineNumber());
+                pos = s.parseStatement(items, pos);
+                statements.add(s);
+                continue;
+            }
+            if (l.getLine().startsWith("sub "))
+            {
+                if (indentLevel != 0)
+                {
+                    System.out.println("Subroutines must be declared at indent level 0. Line " + l.getLineNumber());
+                    System.exit(0);
+                }
+                if (subLock)
+                {
+                    System.out.println("Only declare, dim and debug statements are allowed before function or subroutine declarations. Line " + l.getLineNumber());
+                    System.exit(0);
+                }
+                System.out.println("sub is not implemented yet. Line " + l.getLineNumber());
+                System.exit(0);
+                continue;
+            }
+            if (l.getLine().startsWith("func "))
+            {
+                if (indentLevel != 0)
+                {
+                    System.out.println("Functions must be declared at indent level 0. Line " + l.getLineNumber());
+                    System.exit(0);
+                }
+                if (subLock)
+                {
+                    System.out.println("Only declare, dim and debug statements are allowed before function or subroutine declarations. Line " + l.getLineNumber());
+                    System.exit(0);
+                }
+                System.out.println("func is not implemented yet. Line " + l.getLineNumber());
+                System.exit(0);
+                continue;
+            }
+            if (l.getLine().startsWith("arrfunc "))
+            {
+                if (indentLevel != 0)
+                {
+                    System.out.println("Functions must be declared at indent level 0. Line " + l.getLineNumber());
+                    System.exit(0);
+                }
+                if (subLock)
+                {
+                    System.out.println("Only declare, dim and debug statements are allowed before function or subroutine declarations. Line " + l.getLineNumber());
+                    System.exit(0);
+                }
+                System.out.println("arrfunc is not implemented yet. Line " + l.getLineNumber());
+                System.exit(0);
+                continue;
+            }
+            subLock = true;
+            if (l.getLine().startsWith("if "))
+            {
+                Statement s = new IfStatement(this, l.getLineNumber());
+                pos = s.parseStatement(items, pos);
+                statements.add(s);
+                continue;
+            }
+            if (l.getLine().startsWith("while "))
+            {
+                Statement s = new WhileStatement(this, l.getLineNumber());
+                pos = s.parseStatement(items, pos);
+                statements.add(s);
+                continue;
+            }
+            if (l.getLine().startsWith("dowhile "))
+            {
+                Statement s = new DowhileStatement(this, l.getLineNumber());
                 pos = s.parseStatement(items, pos);
                 statements.add(s);
                 continue;

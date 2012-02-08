@@ -35,7 +35,7 @@ public class ArrayNode extends Node
     public int populate(String[] tokens, int index)
     {
         String token = tokens[index + 1];
-        int pos = token.indexOf("[");
+        int pos = token.indexOf('[');
         arrayName = token.substring(0, pos).trim();
         expression = ExpressionGenerator.generateExpression(token.substring(pos + 1, token.length() - 1), lineNumber, parentBlock);
         return index;

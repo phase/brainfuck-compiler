@@ -43,7 +43,7 @@ public class DimStatement extends Statement
         try
         {
             arraySize = Integer.parseInt(parts[1].trim());
-        } catch (Exception ex)
+        } catch (NumberFormatException ex)
         {
             System.out.println("Invalid array size at line " + lineNumber);
             System.exit(0);
