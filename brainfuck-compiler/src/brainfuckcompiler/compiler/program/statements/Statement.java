@@ -10,7 +10,7 @@ public abstract class Statement
     Block parentBlock;
     int lineNumber;
 
-    public Statement(Block parentBlock, int LineNumber)
+    public Statement(Block parentBlock, int lineNumber)
     {
         this.parentBlock = parentBlock;
         this.lineNumber = lineNumber;

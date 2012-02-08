@@ -9,7 +9,9 @@ import java.util.ArrayList;
  */
 public class StringTools
 {
-    static ArrayList factorPairs;
+
+    static ArrayList<factorPair> factorPairs;
+
     /**
      *
      * @param s
@@ -39,7 +41,7 @@ public class StringTools
             return;
         }
         boolean bigger = c > prev;
-        factorPairs = new ArrayList();
+        factorPairs = new ArrayList<factorPair>();
         int absDifference = Math.abs(difference);
         for (int i = 2; i < absDifference + 11; i++)
         {

@@ -92,6 +92,7 @@ public class LineReader
             }
         } catch (IOException ex)
         {
+            System.out.println("Error in closing file");
         }
         open = false;
     }

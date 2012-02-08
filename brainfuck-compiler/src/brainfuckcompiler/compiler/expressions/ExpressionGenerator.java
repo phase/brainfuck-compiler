@@ -18,7 +18,7 @@ public class ExpressionGenerator
     private static String[] convertInfixToPostfix(String e)
     {
         Operator paren = new Operator("(", "\\(", Integer.MAX_VALUE, true), temp;
-        Stack s = new Stack();
+        Stack<Operator> s = new Stack<Operator>();
         ArrayList<String> retArrayList = new ArrayList<String>();
         String[] tokens = tokenize(e);
         if (tokens == null)
@@ -36,7 +36,7 @@ public class ExpressionGenerator
                 s.push(paren);
             } else if (t.equals(")"))
             {
-                while (!(temp = (Operator) s.pop()).getOp().equals("("))
+                while (!(temp = s.pop()).getOp().equals("("))
                 {
                     retArrayList.add(temp.getOp());
                 }
@@ -58,7 +58,7 @@ public class ExpressionGenerator
                         Operator topStack = (Operator) s.peek();
                         if ((topStack.isLeftAssociative() && topStack.getPrecedence() <= o.getPrecedence()) || (!topStack.isLeftAssociative() && topStack.getPrecedence() < o.getPrecedence()))
                         {
-                            retArrayList.add(((Operator) s.pop()).getOp());
+                            retArrayList.add(s.pop().getOp());
                         } else
                         {
                             s.push(o);
@@ -70,7 +70,7 @@ public class ExpressionGenerator
         }
         while (!s.empty())
         {
-            retArrayList.add(((Operator) s.pop()).getOp());
+            retArrayList.add(s.pop().getOp());
         }
         String[] ret = new String[retArrayList.size()];
         retArrayList.toArray(ret);
@@ -97,16 +97,13 @@ public class ExpressionGenerator
                     if (c == '(')
                     {
                         counter++;
-                    } else if (c == ')')
+                    } else if ((c == ')') && (--counter == 0))
                     {
-                        if (--counter == 0)
-                        {
-                            l.add(e.substring(startingPosition, endingPosition));
-                            e = e.substring(endingPosition);
-                            m.reset(e);
-                            found = true;
-                            break;
-                        }
+                        l.add(e.substring(startingPosition, endingPosition));
+                        e = e.substring(endingPosition);
+                        m.reset(e);
+                        found = true;
+                        break;
                     }
                 }
                 if (!found)
@@ -127,16 +124,13 @@ public class ExpressionGenerator
                     if (c == '[')
                     {
                         counter++;
-                    } else if (c == ']')
+                    } else if ((c == ']') && (--counter == 0))
                     {
-                        if (--counter == 0)
-                        {
-                            l.add(e.substring(startingPosition, endingPosition));
-                            e = e.substring(endingPosition);
-                            m.reset(e);
-                            found = true;
-                            break;
-                        }
+                        l.add(e.substring(startingPosition, endingPosition));
+                        e = e.substring(endingPosition);
+                        m.reset(e);
+                        found = true;
+                        break;
                     }
                 }
                 if (!found)
