@@ -1,6 +1,7 @@
 package brainfuckcompiler.compiler.program.statements;
 
 import brainfuckcompiler.compiler.program.Array;
+import brainfuckcompiler.compiler.program.Variable;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.compiler.program.structure.Item;
 import brainfuckcompiler.compiler.program.structure.Line;
@@ -34,6 +35,11 @@ public class DimStatement extends Statement
             System.exit(0);
         }
         arrayName = parts[0].trim();
+        if (!Statement.isValidVariableName(arrayName))
+        {
+            System.out.println("Invalid array name at line " + lineNumber);
+            System.exit(0);
+        }
         try
         {
             arraySize = Integer.parseInt(parts[1].trim());
@@ -48,7 +54,7 @@ public class DimStatement extends Statement
     @Override
     public void generate()
     {
-        if (getArray() != null)
+        if (nameExists())
         {
             System.out.println("Double declaration of array " + arrayName + " at line " + lineNumber);
             System.exit(0);
@@ -56,16 +62,24 @@ public class DimStatement extends Statement
         parentBlock.getArrayScope().add(new Array(arrayName, arraySize));
     }
 
-    private Array getArray()
+    private boolean nameExists()
     {
+        ArrayList<Variable> variables = parentBlock.getVariableScope();
+        for (Variable v : variables)
+        {
+            if (v.getName().equals(arrayName))
+            {
+                return true;
+            }
+        }
         ArrayList<Array> arrays = parentBlock.getArrayScope();
         for (Array a : arrays)
         {
             if (a.getName().equals(arrayName))
             {
-                return a;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 }

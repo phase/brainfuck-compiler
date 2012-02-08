@@ -19,4 +19,9 @@ public abstract class Statement
     public abstract int parseStatement(ArrayList<Item> items, int currentPosition);
 
     public abstract void generate();
+
+    public static boolean isValidVariableName(String name)
+    {
+        return !name.matches("(dim)|(declare)|(if)|(while)|(dowhile)|(debug)|(else)");
+    }
 }

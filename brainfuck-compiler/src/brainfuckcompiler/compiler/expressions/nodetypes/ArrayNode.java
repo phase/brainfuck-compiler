@@ -3,6 +3,7 @@ package brainfuckcompiler.compiler.expressions.nodetypes;
 import brainfuckcompiler.compiler.expressions.ExpressionGenerator;
 import brainfuckcompiler.compiler.expressions.Node;
 import brainfuckcompiler.compiler.program.Array;
+import brainfuckcompiler.compiler.program.Variable;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.statics;
 import java.util.ArrayList;
@@ -42,6 +43,15 @@ public class ArrayNode extends Node
 
     public Array getArray()
     {
+        ArrayList<Variable> variables = parentBlock.getVariableScope();
+        for (Variable v : variables)
+        {
+            if (v.getName().equals(arrayName))
+            {
+                System.out.println("\"" + arrayName + "\" refers to a variable not an array at line " + lineNumber);
+                System.exit(0);
+            }
+        }
         Block b = parentBlock;
         while (b != null)
         {

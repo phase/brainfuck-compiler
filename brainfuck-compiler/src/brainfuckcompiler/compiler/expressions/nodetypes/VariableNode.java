@@ -1,6 +1,7 @@
 package brainfuckcompiler.compiler.expressions.nodetypes;
 
 import brainfuckcompiler.compiler.expressions.Node;
+import brainfuckcompiler.compiler.program.Array;
 import brainfuckcompiler.compiler.program.Variable;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.statics;
@@ -39,6 +40,15 @@ public class VariableNode extends Node
 
     public Variable getVariable()
     {
+        ArrayList<Array> arrays = parentBlock.getArrayScope();
+        for (Array a : arrays)
+        {
+            if (a.getName().equals(variableName))
+            {
+                System.out.println("\"" + variableName + "\" refers to an array not a variable at line " + lineNumber);
+                System.exit(0);
+            }
+        }
         Block b = parentBlock;
         while (b != null)
         {

@@ -3,6 +3,7 @@ package brainfuckcompiler.compiler.program.statements;
 import brainfuckcompiler.compiler.expressions.ExpressionGenerator;
 import brainfuckcompiler.compiler.expressions.Node;
 import brainfuckcompiler.compiler.expressions.nodes.AssignmentOperator;
+import brainfuckcompiler.compiler.program.Array;
 import brainfuckcompiler.compiler.program.Variable;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.compiler.program.structure.Item;
@@ -41,6 +42,11 @@ public class DeclareStatement extends Statement
             System.exit(0);
         }
         variableName = parts[0].trim();
+        if (!Statement.isValidVariableName(variableName))
+        {
+            System.out.println("Invalid variable name at line " + lineNumber);
+            System.exit(0);
+        }
         if (parts.length == 1)
         {
             return currentPosition;
@@ -57,7 +63,7 @@ public class DeclareStatement extends Statement
     @Override
     public void generate()
     {
-        if (getVariable() == null)
+        if (!nameExists())
         {
             Variable v = new Variable(variableName);
             parentBlock.getVariableScope().add(v);
@@ -74,16 +80,24 @@ public class DeclareStatement extends Statement
         }
     }
 
-    private Variable getVariable()
+    private boolean nameExists()
     {
         ArrayList<Variable> variables = parentBlock.getVariableScope();
         for (Variable v : variables)
         {
             if (v.getName().equals(variableName))
             {
-                return v;
+                return true;
             }
         }
-        return null;
+        ArrayList<Array> arrays = parentBlock.getArrayScope();
+        for (Array a : arrays)
+        {
+            if (a.getName().equals(variableName))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
