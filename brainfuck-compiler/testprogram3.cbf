@@ -1,0 +1,12 @@
+dim z,10
+
+sub storeInArray(pos,val)
+	z[pos]=val
+
+declare x,9
+while x>0
+	storeInArray(x,x*2)
+	x=x-1
+storeInArray(10,20)
+declare position26,z[5]*3
+debug

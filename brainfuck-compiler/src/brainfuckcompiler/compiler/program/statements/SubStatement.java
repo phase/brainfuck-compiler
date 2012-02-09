@@ -16,6 +16,7 @@ public class SubStatement extends Statement
     @Override
     public int parseStatement(ArrayList<Item> items, int currentPosition)
     {
+        //TODO allow redeclaration of external variables. Possibly by making a new parent block
         Line l = (Line) items.get(currentPosition);
         String line = l.getLine().substring(4).trim();
         int openParen = line.indexOf('(');
@@ -30,7 +31,7 @@ public class SubStatement extends Statement
         for (int i = 0; i < variableNames.length; i++)
         {
             variableNames[i] = variableNames[i].trim();
-            if (Statement.isValidVariableName(variableNames[i]) || (!variableNames[i].matches("[_a-zA-Z][_0-9a-zA-Z]*")))
+            if ((!Statement.isValidVariableName(variableNames[i])) || (!variableNames[i].matches("[_a-zA-Z][_0-9a-zA-Z]*")))
             {
                 System.out.println("Invalid variable name \"" + variableNames[i] + "\" at line " + lineNumber);
                 System.exit(0);
@@ -43,11 +44,13 @@ public class SubStatement extends Statement
             System.exit(0);
         }
         Item item = items.get(currentPosition);
+        currentPosition++;
         if (!(item instanceof Block))
         {
             System.out.println("Expected code block at line " + (l.getLineNumber() + 1));
             System.exit(0);
         }
+        ((Block) item).generateStatements();
         sub = new Subroutine(name, variableNames, (Block) item);
         return currentPosition;
     }

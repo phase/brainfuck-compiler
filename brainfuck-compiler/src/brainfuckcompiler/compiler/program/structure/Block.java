@@ -126,8 +126,9 @@ public class Block extends Item
                     System.out.println("Only declare, dim and debug statements are allowed before function or subroutine declarations. Line " + l.getLineNumber());
                     System.exit(0);
                 }
-                System.out.println("sub is not implemented yet. Line " + l.getLineNumber());
-                System.exit(0);
+                Statement s = new SubStatement(this, l.getLineNumber());
+                pos = s.parseStatement(items, pos);
+                statements.add(s);
                 continue;
             }
             if (l.getLine().startsWith("func "))

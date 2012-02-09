@@ -4,6 +4,7 @@ import brainfuckcompiler.compiler.expressions.Node;
 import brainfuckcompiler.compiler.expressions.nodes.*;
 import brainfuckcompiler.compiler.expressions.nodetypes.ArrayNode;
 import brainfuckcompiler.compiler.expressions.nodetypes.ConstantNode;
+import brainfuckcompiler.compiler.expressions.nodetypes.SubNode;
 import brainfuckcompiler.compiler.expressions.nodetypes.VariableNode;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.statics;
@@ -163,7 +164,7 @@ public class Operators
         }
         if (token.matches("[_a-zA-Z][_0-9a-zA-Z]*\\(.*\\)"))
         {
-            return null;
+            return new SubNode(lineNumber, parentBlock);
         }
         if (token.matches("[_a-zA-Z][_0-9a-zA-Z]*"))
         {
