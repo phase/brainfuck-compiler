@@ -15,7 +15,7 @@ public class Subroutine
     {
         this.variableNames = variableNames;
         this.codeBlock = b;
-        this.codeBlock.setParentBlock(null);
+        this.codeBlock.setParentBlock(new Block(new ArrayList<Item>(), 0, null, 0));
         this.name = name;
     }
 
@@ -35,8 +35,7 @@ public class Subroutine
             }
             if (isExternal)
             {
-                variablesNotToFree.add(v.getName());
-                codeBlock.getVariableScope().add(v);
+                codeBlock.getParentBlock().getVariableScope().add(v);
             }
         }
         for (Array a : arrays)
@@ -52,17 +51,16 @@ public class Subroutine
             }
             if (isExternal)
             {
-                variablesNotToFree.add(a.getName());
-                codeBlock.getArrayScope().add(a);
+                codeBlock.getParentBlock().getArrayScope().add(a);
             }
         }
         for (Subroutine s : subroutines)
         {
-            codeBlock.getSubScope().add(s);
+            codeBlock.getParentBlock().getSubScope().add(s);
         }
         for (Function f : functions)
         {
-            codeBlock.getFuncScope().add(f);
+            codeBlock.getParentBlock().getFuncScope().add(f);
         }
         codeBlock.setVariablesNotToFree(variablesNotToFree);
     }
