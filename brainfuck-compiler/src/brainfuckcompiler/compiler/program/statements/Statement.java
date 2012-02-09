@@ -22,6 +22,6 @@ public abstract class Statement
 
     public static boolean isValidVariableName(String name)
     {
-        return !name.matches("(dim)|(declare)|(if)|(while)|(dowhile)|(debug)|(else)|(sub)|(func)|(arrfunc)");
+        return !name.matches("(dim)|(declare)|(if)|(while)|(dowhile)|(debug)|(else)|(sub)|(func)|(arrfunc)|(random)");
     }
 }

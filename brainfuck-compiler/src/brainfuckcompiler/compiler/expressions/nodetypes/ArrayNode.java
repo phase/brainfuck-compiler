@@ -26,8 +26,6 @@ public class ArrayNode extends Node
         int pos = expression.generateBF();
         int ret = statics.t.alloc();
         a.get(pos, ret);
-        statics.t.clear(pos);
-        statics.t.free(pos);
         return ret;
     }
 

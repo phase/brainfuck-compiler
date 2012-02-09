@@ -37,9 +37,6 @@ public class AssignmentOperator extends BinaryOperator
             int pos = ((ArrayNode) left).getExpression().generateBF();
             int val = right.generateBF();
             a.set(pos, val);
-            statics.t.clear(pos);
-            statics.t.clear(val);
-            statics.t.free(pos, val);
         } else
         {
             System.out.println("Assignment must be done to an array or a variable at line " + lineNumber);
