@@ -12,7 +12,10 @@ public class Block extends Item
     private ArrayList<Statement> statements;
     private ArrayList<Variable> variableScope;
     private ArrayList<Array> arrayScope;
+    private ArrayList<Subroutine> subScope;
+    private ArrayList<Function> funcScope;
     private boolean subLock;
+    private ArrayList<String> variablesNotToFree;
 
     public Block(ArrayList<Item> items, int indentLevel, Block parentBlock, int lineNumber)
     {
@@ -55,9 +58,19 @@ public class Block extends Item
             }
         }
         this.items = items;
+        this.items.trimToSize();
         variableScope = new ArrayList<Variable>();
         arrayScope = new ArrayList<Array>();
+        subScope = new ArrayList<Subroutine>();
+        funcScope = new ArrayList<Function>();
         subLock = false;
+        variablesNotToFree = new ArrayList<String>();
+    }
+
+    public void setVariablesNotToFree(ArrayList<String> variablesNotToFree)
+    {
+        this.variablesNotToFree = variablesNotToFree;
+        this.variablesNotToFree.trimToSize();
     }
 
     public void generateStatements()
@@ -171,7 +184,7 @@ public class Block extends Item
                 statements.add(s);
                 continue;
             }
-            Statement s = new AssignmentStatement(this, l.getLineNumber());
+            Statement s = new ExpressionStatement(this, l.getLineNumber());
             pos = s.parseStatement(items, pos);
             statements.add(s);
         }
@@ -194,15 +207,59 @@ public class Block extends Item
             Statement s = statements.get(i);
             s.generate();
         }
+        ArrayList<Variable> newVariableScope = new ArrayList<Variable>();
         while (!variableScope.isEmpty())
         {
             Variable v = variableScope.remove(variableScope.size() - 1);
-            v.free();
+            boolean free = true;
+            for (int i = 0; i < variablesNotToFree.size(); i++)
+            {
+                if (v.getName().equals(variablesNotToFree.get(i)))
+                {
+                    free = false;
+                    break;
+                }
+            }
+            if (free)
+            {
+                v.free();
+            } else
+            {
+                newVariableScope.add(v);
+            }
         }
+        this.variableScope = newVariableScope;
+        ArrayList<Array> newArrayScope = new ArrayList<Array>();
         while (!arrayScope.isEmpty())
         {
             Array a = arrayScope.remove(arrayScope.size() - 1);
-            a.free();
+            boolean free = true;
+            for (int i = 0; i < variablesNotToFree.size(); i++)
+            {
+                if (a.getName().equals(variablesNotToFree.get(i)))
+                {
+                    free = false;
+                    break;
+                }
+            }
+            if (free)
+            {
+                a.free();
+            } else
+            {
+                newArrayScope.add(a);
+            }
         }
+        this.arrayScope = newArrayScope;
+    }
+
+    public ArrayList<Subroutine> getSubScope()
+    {
+        return subScope;
+    }
+
+    public ArrayList<Function> getFuncScope()
+    {
+        return funcScope;
     }
 }

@@ -8,6 +8,12 @@ public class Variable
     private String name;
     private int memoryPosition;
 
+    public Variable(String name, int memoryPosition)
+    {
+        this.name = name;
+        this.memoryPosition = memoryPosition;
+    }
+
     public Variable(String name)
     {
         this.name = name;

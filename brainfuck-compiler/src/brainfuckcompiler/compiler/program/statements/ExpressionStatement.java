@@ -8,12 +8,12 @@ import brainfuckcompiler.compiler.program.structure.Item;
 import brainfuckcompiler.compiler.program.structure.Line;
 import java.util.ArrayList;
 
-public class AssignmentStatement extends Statement
+public class ExpressionStatement extends Statement
 {
 
     Node expression;
 
-    public AssignmentStatement(Block parentBlock, int LineNumber)
+    public ExpressionStatement(Block parentBlock, int LineNumber)
     {
         super(parentBlock, LineNumber);
     }

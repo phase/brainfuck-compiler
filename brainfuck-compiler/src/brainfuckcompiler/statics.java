@@ -11,5 +11,5 @@ public class statics
     public static BrainfuckTools t = null;
     public static Operators ops = null;
     public static Pattern p = null;
-    public static RandomNumberGenerator gen=null;
+    public static RandomNumberGenerator gen = null;
 }
