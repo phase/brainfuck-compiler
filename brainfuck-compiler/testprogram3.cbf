@@ -1,12 +1,12 @@
-dim z,10
+func gcd(a,b)
+	while b!=0
+		declare t,b
+		b=a%b
+		a=t
+	gcd=a
 
-sub storeInArray(pos,val)
-	z[pos]=val
-
-declare x,9
-while x>0
-	storeInArray(x,x*2)
-	x=x-1
-storeInArray(10,20)
-declare position26,z[5]*3
+func lcm(a,b)
+	lcm=(a*b)/gcd(a,b)
+declare z,lcm(4,6)
+z=lcm(4,6)
 debug

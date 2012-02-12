@@ -1,15 +1,14 @@
 package brainfuckcompiler.compiler.program.statements;
 
 import brainfuckcompiler.compiler.program.structure.*;
-import brainfuckcompiler.statics;
 import java.util.ArrayList;
 
-public class SubStatement extends Statement
+public class FuncStatement extends Statement
 {
 
-    Subroutine sub;
+    Function func;
 
-    public SubStatement(Block parentBlock, int lineNumber)
+    public FuncStatement(Block parentBlock, int lineNumber)
     {
         super(parentBlock, lineNumber);
     }
@@ -27,7 +26,7 @@ public class SubStatement extends Statement
         }
         String name = line.substring(0, openParen);
         line = line.substring(openParen + 1, line.length() - 1);
-        String[] variableNames = statics.splitOnComma(line, lineNumber);
+        String[] variableNames = line.split(",");
         for (int i = 0; i < variableNames.length; i++)
         {
             variableNames[i] = variableNames[i].trim();
@@ -51,34 +50,34 @@ public class SubStatement extends Statement
             System.exit(0);
         }
         ((Block) item).generateStatements();
-        sub = new Subroutine(name, variableNames, (Block) item);
+        func = new Function(name, variableNames, (Block) item);
         return currentPosition;
     }
 
     @Override
     public void generate()
     {
-        if (subNameExists())
+        if (funcNameExists())
         {
             System.out.println("Double declaration of subroutine/function at line " + lineNumber);
             System.exit(0);
         }
-        sub.setExternalAccessibleVariables(parentBlock.getVariableScope(), parentBlock.getArrayScope(), parentBlock.getSubScope(), parentBlock.getFuncScope());
-        parentBlock.getSubScope().add(sub);
+        func.setExternalAccessibleVariables(parentBlock.getVariableScope(), parentBlock.getArrayScope(), parentBlock.getSubScope(), parentBlock.getFuncScope());
+        parentBlock.getFuncScope().add(func);
     }
 
-    private boolean subNameExists()
+    private boolean funcNameExists()
     {
         for (Subroutine s : parentBlock.getSubScope())
         {
-            if (s.getName().equals(sub.getName()))
+            if (s.getName().equals(func.getName()))
             {
                 return true;
             }
         }
         for (Function f : parentBlock.getFuncScope())
         {
-            if (f.getName().equals(sub.getName()))
+            if (f.getName().equals(func.getName()))
             {
                 return true;
             }

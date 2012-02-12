@@ -3,6 +3,7 @@ package brainfuckcompiler.compiler.program.statements;
 import brainfuckcompiler.compiler.expressions.ExpressionGenerator;
 import brainfuckcompiler.compiler.expressions.Node;
 import brainfuckcompiler.compiler.expressions.nodes.AssignmentOperator;
+import brainfuckcompiler.compiler.expressions.nodetypes.SubNode;
 import brainfuckcompiler.compiler.program.Array;
 import brainfuckcompiler.compiler.program.Variable;
 import brainfuckcompiler.compiler.program.structure.Block;
@@ -26,7 +27,7 @@ public class DeclareStatement extends Statement
     {
         Line l = (Line) items.get(currentPosition);
         currentPosition++;
-        String[] parts = l.getLine().substring(8).split(",");
+        String[] parts = statics.splitOnComma(l.getLine().substring(8), l.getLineNumber());
         if (parts.length == 0)
         {
             System.out.println("Incomplete declare statement at line " + l.getLineNumber());
@@ -55,6 +56,11 @@ public class DeclareStatement extends Statement
         if (expression instanceof AssignmentOperator)
         {
             System.out.println("Initializer on line " + l.getLineNumber() + " cannot use an assignment operator");
+            System.exit(0);
+        }
+        if ((expression instanceof SubNode) && (((SubNode) expression).getType() == SubNode.SUB))
+        {
+            System.out.println("Cannot use a sub in an initializer on line " + l.getLineNumber());
             System.exit(0);
         }
         return currentPosition;

@@ -21,7 +21,6 @@ public class Subroutine
 
     public void setExternalAccessibleVariables(ArrayList<Variable> variables, ArrayList<Array> arrays, ArrayList<Subroutine> subroutines, ArrayList<Function> functions)
     {
-        ArrayList<String> variablesNotToFree = new ArrayList<String>();
         for (Variable v : variables)
         {
             boolean isExternal = true;
@@ -62,7 +61,6 @@ public class Subroutine
         {
             codeBlock.getParentBlock().getFuncScope().add(f);
         }
-        codeBlock.setVariablesNotToFree(variablesNotToFree);
     }
 
     public void generate(int lineNumber, int... memoryPositions)

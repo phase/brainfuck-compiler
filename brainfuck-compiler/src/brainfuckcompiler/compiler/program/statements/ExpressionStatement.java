@@ -7,6 +7,7 @@ import brainfuckcompiler.compiler.expressions.nodetypes.SubNode;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.compiler.program.structure.Item;
 import brainfuckcompiler.compiler.program.structure.Line;
+import brainfuckcompiler.statics;
 import java.util.ArrayList;
 
 public class ExpressionStatement extends Statement
@@ -44,7 +45,10 @@ public class ExpressionStatement extends Statement
                 return;
             } else if (s.getType() == SubNode.FUNC)
             {
-                throw new UnsupportedOperationException("Cannot use functions just yet...");
+                int ret = s.generateBF();
+                statics.t.clear(ret);
+                statics.t.free(ret);
+                return;
             } else if (s.getType() == SubNode.NOTFOUND)
             {
                 System.out.println("\"" + s.getSubName() + "\" not found on line " + lineNumber);

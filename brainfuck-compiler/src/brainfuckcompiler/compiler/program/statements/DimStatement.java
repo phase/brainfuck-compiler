@@ -5,6 +5,7 @@ import brainfuckcompiler.compiler.program.Variable;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.compiler.program.structure.Item;
 import brainfuckcompiler.compiler.program.structure.Line;
+import brainfuckcompiler.statics;
 import java.util.ArrayList;
 
 public class DimStatement extends Statement
@@ -23,7 +24,7 @@ public class DimStatement extends Statement
     {
         Line l = (Line) items.get(currentPosition);
         currentPosition++;
-        String[] parts = l.getLine().substring(4).split(",");
+        String[] parts = statics.splitOnComma(l.getLine().substring(4), l.getLineNumber());
         if (parts.length != 2)
         {
             System.out.println("Incomplete declare statement at line " + l.getLineNumber());

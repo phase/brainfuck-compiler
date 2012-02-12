@@ -6,6 +6,7 @@ import brainfuckcompiler.compiler.expressions.nodes.AssignmentOperator;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.compiler.program.structure.Function;
 import brainfuckcompiler.compiler.program.structure.Subroutine;
+import brainfuckcompiler.statics;
 
 public class SubNode extends Node
 {
@@ -64,7 +65,19 @@ public class SubNode extends Node
 
     private int generateFunc()
     {
-        throw new UnsupportedOperationException("generateFunc has not been implemented yet");
+        Function func = getFunction();
+        int[] memoryLocations = new int[expressions.length];
+        for (int i = 0; i < expressions.length; i++)
+        {
+            if ((expressions[i] instanceof SubNode) && (((SubNode) expressions[i]).getType() == SUB))
+            {
+                System.out.println("Cannot use a subroutine as a parameter. Line " + lineNumber);
+                System.exit(0);
+            }
+            memoryLocations[i] = expressions[i].generateBF();
+        }
+        func.generate(lineNumber, memoryLocations);
+        return func.getReturnMemoryPosition();
     }
 
     private Subroutine getSubroutine()
@@ -131,7 +144,7 @@ public class SubNode extends Node
         String token = tokens[index + 1];
         int leftParen = token.indexOf('(');
         subName = token.substring(0, leftParen);
-        String[] expressionStrings = token.substring(leftParen + 1, token.length() - 1).split(",");
+        String[] expressionStrings = statics.splitOnComma(token.substring(leftParen + 1, token.length() - 1), lineNumber);
         expressions = new Node[expressionStrings.length];
         for (int i = 0; i < expressions.length; i++)
         {

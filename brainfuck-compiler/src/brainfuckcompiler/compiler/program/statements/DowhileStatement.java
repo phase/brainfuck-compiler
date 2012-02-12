@@ -3,6 +3,7 @@ package brainfuckcompiler.compiler.program.statements;
 import brainfuckcompiler.compiler.expressions.ExpressionGenerator;
 import brainfuckcompiler.compiler.expressions.Node;
 import brainfuckcompiler.compiler.expressions.nodes.AssignmentOperator;
+import brainfuckcompiler.compiler.expressions.nodetypes.SubNode;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.compiler.program.structure.Item;
 import brainfuckcompiler.compiler.program.structure.Line;
@@ -29,6 +30,12 @@ public class DowhileStatement extends Statement
             System.out.println("Cannot assign a value to a variable on line " + l.getLineNumber());
             System.exit(0);
         }
+        if ((expression instanceof SubNode) && (((SubNode) expression).getType() == SubNode.SUB))
+        {
+            System.out.println("Cannot use a sub in a dowhile statement on line " + l.getLineNumber());
+            System.exit(0);
+        }
+
         currentPosition++;
         if (currentPosition < items.size())
         {

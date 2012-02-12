@@ -143,24 +143,9 @@ public class Block extends Item
                     System.out.println("Only declare, dim and debug statements are allowed before function or subroutine declarations. Line " + l.getLineNumber());
                     System.exit(0);
                 }
-                System.out.println("func is not implemented yet. Line " + l.getLineNumber());
-                System.exit(0);
-                continue;
-            }
-            if (l.getLine().startsWith("arrfunc "))
-            {
-                if (indentLevel != 0)
-                {
-                    System.out.println("Functions must be declared at indent level 0. Line " + l.getLineNumber());
-                    System.exit(0);
-                }
-                if (subLock)
-                {
-                    System.out.println("Only declare, dim and debug statements are allowed before function or subroutine declarations. Line " + l.getLineNumber());
-                    System.exit(0);
-                }
-                System.out.println("arrfunc is not implemented yet. Line " + l.getLineNumber());
-                System.exit(0);
+                Statement s = new FuncStatement(this, l.getLineNumber());
+                pos = s.parseStatement(items, pos);
+                statements.add(s);
                 continue;
             }
             subLock = true;
@@ -208,7 +193,6 @@ public class Block extends Item
             Statement s = statements.get(i);
             s.generate();
         }
-        ArrayList<Variable> newVariableScope = new ArrayList<Variable>();
         while (!variableScope.isEmpty())
         {
             Variable v = variableScope.remove(variableScope.size() - 1);
@@ -224,13 +208,8 @@ public class Block extends Item
             if (free)
             {
                 v.free();
-            } else
-            {
-                newVariableScope.add(v);
             }
         }
-        this.variableScope = newVariableScope;
-        ArrayList<Array> newArrayScope = new ArrayList<Array>();
         while (!arrayScope.isEmpty())
         {
             Array a = arrayScope.remove(arrayScope.size() - 1);
@@ -246,12 +225,8 @@ public class Block extends Item
             if (free)
             {
                 a.free();
-            } else
-            {
-                newArrayScope.add(a);
             }
         }
-        this.arrayScope = newArrayScope;
     }
 
     public ArrayList<Subroutine> getSubScope()
@@ -262,5 +237,10 @@ public class Block extends Item
     public ArrayList<Function> getFuncScope()
     {
         return funcScope;
+    }
+
+    public ArrayList<String> getVariablesNotToFree()
+    {
+        return variablesNotToFree;
     }
 }
