@@ -1,5 +1,6 @@
 package brainfuckcompiler;
 
+import brainfuckcompiler.code.BFStack;
 import brainfuckcompiler.code.BrainfuckTools;
 import brainfuckcompiler.code.random.RandomNumberGenerator;
 import brainfuckcompiler.compiler.expressions.operators.Operators;
@@ -14,13 +15,30 @@ public class Main
 
     public static void main(String[] args)
     {
+        int numberOfCells = 1;
         initializeCompiler();
         Block b = createBlockFromFile(args[0]);
         b.generateStatements();
         b.generate();
+        BFStack.free();
         statics.gen.free();
         statics.t.to(0);
-        output8Bit(statics.t.getB().toString());
+        BFStack.parseStackCalls();
+        switch (numberOfCells)
+        {
+            case 1:
+                output8Bit(statics.t.getB().toString());
+                break;
+            case 2:
+                output16Bit(statics.t.getB().toString());
+                break;
+            case 4:
+                output32Bit(statics.t.getB().toString());
+                break;
+            default:
+                System.out.println("Invalid number of cells specified");
+                break;
+        }
     }
 
     private static void initializeCompiler()
@@ -57,7 +75,15 @@ public class Main
 
     private static void output8Bit(String s)
     {
-        System.out.println(s);
+        for (int i = 0; i < s.length(); i++)
+        {
+            if (i > 0 && (i % 80 == 0))
+            {
+                System.out.println();
+            }
+            System.out.print(s.charAt(i));
+        }
+        System.out.println();
     }
 
     private static void output16Bit(String s)

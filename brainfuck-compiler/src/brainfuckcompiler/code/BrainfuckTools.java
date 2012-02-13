@@ -25,6 +25,16 @@ public class BrainfuckTools
         this.b = new StringBuffer();
     }
 
+    public int getPointer()
+    {
+        return pointer;
+    }
+
+    public void setB(StringBuffer b)
+    {
+        this.b = b;
+    }
+
     /**
      *
      * @return

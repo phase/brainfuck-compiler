@@ -1,0 +1,15 @@
+sub outputNumber(x)
+	declare digits
+	while x!=0
+		push x%10
+		x=x/10
+		digits = digits +1
+	if digits==0
+		digits=1
+		push 0
+	while digits >0
+		declare digit,pop+48
+		digits=digits-1
+		debug
+
+outputNumber(143)

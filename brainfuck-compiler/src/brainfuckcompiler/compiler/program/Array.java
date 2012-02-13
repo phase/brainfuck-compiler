@@ -24,7 +24,8 @@ public class Array
     {
         int amt = (size - 5) / 2;
         statics.t.plus(mempos + 3, amt);
-        statics.t.append("[>[>>]+[<<]>-]>[>[-]>]<<[-<<]>");
+        statics.t.append("[>[>>]+[<<]>-]>[>[-]>]<<[-<<]");
+        statics.t.at(mempos + 2);
         statics.t.freeContiguous(mempos, size);
     }
 

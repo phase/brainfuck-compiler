@@ -149,6 +149,13 @@ public class Block extends Item
                 continue;
             }
             subLock = true;
+            if (l.getLine().startsWith("push "))
+            {
+                Statement s = new PushStatement(this, l.getLineNumber());
+                pos = s.parseStatement(items, pos);
+                statements.add(s);
+                continue;
+            }
             if (l.getLine().startsWith("if "))
             {
                 Statement s = new IfStatement(this, l.getLineNumber());

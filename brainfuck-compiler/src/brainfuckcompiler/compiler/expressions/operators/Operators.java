@@ -159,6 +159,10 @@ public class Operators
         {
             return new RandomNode(lineNumber, parentBlock);
         }
+        if (token.equals("pop"))
+        {
+            return new PopNode(lineNumber, parentBlock);
+        }
         if (token.matches("[_a-zA-Z][_0-9a-zA-Z]*\\[.*\\]"))
         {
             return new ArrayNode(lineNumber, parentBlock);
