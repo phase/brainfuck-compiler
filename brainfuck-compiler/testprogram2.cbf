@@ -1,6 +1,6 @@
 dim z,9
-declare x,9
-while x>0
+declare x,1
+while x<=9
 	z[x]=x*2
 	x=x-1
 debug

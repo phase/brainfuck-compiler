@@ -48,13 +48,13 @@ public class Main
             Line line;
             while ((line = r.readLine()) != null)
             {
-                if (startingLineNumber == -1)
-                {
-                    startingLineNumber = line.getLineNumber();
-                }
                 if (line.getIndentLevel() >= 0)
                 {
                     l.add(line);
+                    if (startingLineNumber == -1)
+                    {
+                        startingLineNumber = line.getLineNumber();
+                    }
                 }
             }
             r.closeFile();

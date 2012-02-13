@@ -16,7 +16,6 @@ public class SmallerThanOrEqualOperator extends BinaryOperator
      */
     public SmallerThanOrEqualOperator(int lineNumber, Block parentBlock)
     {
-        //TODO to check smallerthan or equal operator. Is not working properly
         super(lineNumber, parentBlock);
         returnsBoolean = true;
     }

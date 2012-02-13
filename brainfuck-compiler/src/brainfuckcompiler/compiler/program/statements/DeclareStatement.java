@@ -58,11 +58,6 @@ public class DeclareStatement extends Statement
             System.out.println("Initializer on line " + l.getLineNumber() + " cannot use an assignment operator");
             System.exit(0);
         }
-        if ((expression instanceof SubNode) && (((SubNode) expression).getType() == SubNode.SUB))
-        {
-            System.out.println("Cannot use a sub in an initializer on line " + l.getLineNumber());
-            System.exit(0);
-        }
         return currentPosition;
     }
 
@@ -75,6 +70,11 @@ public class DeclareStatement extends Statement
             parentBlock.getVariableScope().add(v);
             if (expression != null)
             {
+                if ((expression instanceof SubNode) && (((SubNode) expression).getType() == SubNode.SUB))
+                {
+                    System.out.println("Cannot use sub in an initializer on line " + lineNumber);
+                    System.exit(0);
+                }
                 int address = expression.generateBF();
                 statics.t.move(v.getMemoryPosition(), address);
                 statics.t.free(address);
