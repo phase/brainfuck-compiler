@@ -18,16 +18,7 @@ public class Main
         Block b = createBlockFromFile(args[0]);
         b.generateStatements();
         b.generate();
-        String s = statics.t.getB().toString();
-        for (int i = 0; i < s.length(); i++)
-        {
-            if (i > 0 && i % 80 == 0)
-            {
-                System.out.println();
-            }
-            System.out.print(s.charAt(i));
-        }
-        System.out.println();
+        output8Bit(statics.t.getB().toString());
     }
 
     private static void initializeCompiler()
@@ -60,5 +51,78 @@ public class Main
             r.closeFile();
         }
         return new Block(l, 0, null, startingLineNumber);
+    }
+
+    private static void output8Bit(String s)
+    {
+        System.out.println(s);
+    }
+
+    private static void output16Bit(String s)
+    {
+        System.out.print(">");
+        for (int i = 0; i < s.length(); i++)
+        {
+            char c = s.charAt(i);
+            switch (c)
+            {
+                case '[':
+                    System.out.print("[>>+>>>+<<<<<-]>>>>>[<<<<<+>>>>>-]<<<[[-]<<<+>>>]<[>+>>>+<<<<-]>>>>[<<<<+>>>>-]<<<[[-]<<<+>>>]<<<[[-]>");
+                    break;
+                case ']':
+                    System.out.print("[>>+>>>+<<<<<-]>>>>>[<<<<<+>>>>>-]<<<[[-]<<<+>>>]<[>+>>>+<<<<-]>>>>[<<<<+>>>>-]<<<[[-]<<<+>>>]<<<]>");
+                    break;
+                case '+':
+                    System.out.print("+[<+>>>+<<-]<[>+<-]+>>>[<<<->>>[-]]<<<[->>+<<]>");
+                    break;
+                case '-':
+                    System.out.print("[<+>>>+<<-]<[>+<-]+>>>[<<<->>>[-]]<<<[->>-<<]>-");
+                    break;
+                case '<':
+                    System.out.print("<<<");
+                    break;
+                case '>':
+                    System.out.print(">>>");
+                    break;
+                default:
+                    System.out.print(c);
+                    break;
+            }
+        }
+        System.out.println();
+    }
+
+    private static void output32Bit(String s)
+    {
+        System.out.print(">");
+        for (int i = 0; i < s.length(); i++)
+        {
+            char c = s.charAt(i);
+            switch (c)
+            {
+                case '[':
+                    System.out.print("[>>>>+>>>>>+<<<<<<<<<-]>>>>>>>>>[<<<<<<<<<+>>>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<<[>>>+>>>>>+<<<<<<<<-]>>>>>>>>[<<<<<<<<+>>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<[>>+>>>>>+<<<<<<<-]>>>>>>>[<<<<<<<+>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<[>+>>>>>+<<<<<<-]>>>>>>[<<<<<<+>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<<<<[[-]>");
+                    break;
+                case ']':
+                    System.out.print("[>>>>+>>>>>+<<<<<<<<<-]>>>>>>>>>[<<<<<<<<<+>>>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<<[>>>+>>>>>+<<<<<<<<-]>>>>>>>>[<<<<<<<<+>>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<[>>+>>>>>+<<<<<<<-]>>>>>>>[<<<<<<<+>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<[>+>>>>>+<<<<<<-]>>>>>>[<<<<<<+>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<<<<]>");
+                    break;
+                case '+':
+                    System.out.print("+[<+>>>>>+<<<<-]<[>+<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>+[<<+>>>>>+<<<-]<<[>>+<<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>>+[<<<+>>>>>+<<-]<<<[>>>+<<<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>>>+<<<<]]]>");
+                    break;
+                case '-':
+                    System.out.print("[<+>>>>>+<<<<-]<[>+<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>[<<+>>>>>+<<<-]<<[>>+<<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>>[<<<+>>>>>+<<-]<<<[>>>+<<<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>>>-<<<<]>>>-<<<]>>-<<]>-");
+                    break;
+                case '<':
+                    System.out.print("<<<<<");
+                    break;
+                case '>':
+                    System.out.print(">>>>>");
+                    break;
+                default:
+                    System.out.print(c);
+                    break;
+            }
+        }
+        System.out.println();
     }
 }
