@@ -18,6 +18,8 @@ public class Main
         Block b = createBlockFromFile(args[0]);
         b.generateStatements();
         b.generate();
+        statics.gen.free();
+        statics.t.to(0);
         output8Bit(statics.t.getB().toString());
     }
 

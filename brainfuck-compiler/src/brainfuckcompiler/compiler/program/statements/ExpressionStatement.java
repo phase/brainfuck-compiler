@@ -26,7 +26,7 @@ public class ExpressionStatement extends Statement
         expression = ExpressionGenerator.generateExpression(((Line) items.get(currentPosition)).getLine(), lineNumber, parentBlock);
         if (!((expression instanceof AssignmentOperator) || (expression instanceof SubNode)))
         {
-            System.out.println("Expression on line " + lineNumber + " must be an assignment");
+            System.out.println("Expression on line " + lineNumber + " must be an assignment or a sub/function call");
             System.exit(0);
         }
         currentPosition++;

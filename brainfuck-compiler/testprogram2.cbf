@@ -1,7 +1,8 @@
 dim z,9
 declare x,1
 while x<=9
-	z[x]=x*2
+	z[x]=random
+	debug
 	x=x+1
 debug
 declare position26,z[5]*3

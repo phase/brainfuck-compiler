@@ -9,12 +9,14 @@ import brainfuckcompiler.statics;
 public class RandomNumberGenerator
 {
 
+    int[] temp;
     private int randomh, randoml;
 
     public RandomNumberGenerator()
     {
         randomh = statics.t.alloc();
         randoml = statics.t.alloc();
+        temp = statics.t.alloc(6);
     }
 
     /**
@@ -23,7 +25,7 @@ public class RandomNumberGenerator
      */
     public void generateRandomNumber(int x)
     {
-        int[] temp = statics.t.alloc(6);
+
         statics.t.move(temp[0], randomh);
         statics.t.move(temp[1], randoml);
         statics.t.plus(temp[3], 7);
@@ -84,5 +86,13 @@ public class RandomNumberGenerator
         statics.t.deloop(temp[0]);
         statics.t.copy(x, randomh, temp[0]);
         statics.t.free(temp);
+    }
+
+    public void free()
+    {
+        statics.t.free(temp);
+        statics.t.clear(randoml);
+        statics.t.clear(randomh);
+        statics.t.free(randomh, randoml);
     }
 }
