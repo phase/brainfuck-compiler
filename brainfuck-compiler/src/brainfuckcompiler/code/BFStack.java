@@ -4,7 +4,7 @@ import brainfuckcompiler.statics;
 
 public class BFStack
 {
-
+    
     public static void parseStackCalls()
     {
         StringBuffer b = statics.t.getB();
@@ -45,7 +45,7 @@ public class BFStack
             }
         }
     }
-
+    
     private static void push(String params)
     {
         int cpos = Integer.parseInt(params);
@@ -56,7 +56,7 @@ public class BFStack
         statics.t.append(">[>>]+[<<]>[>[>>]<+<[<<]>-]");
         statics.t.to(cpos);
     }
-
+    
     private static void pop(String params)
     {
         int cpos = Integer.parseInt(params);
@@ -71,18 +71,19 @@ public class BFStack
         statics.t.at(stackPosition);
         statics.t.to(cpos);
     }
-
+    
     private static void clearPop(String params)
     {
+        statics.t.append("#");
         int cpos = Integer.parseInt(params);
         statics.t.at(cpos);
         int stackPosition = statics.t.getLargestMemorylocation() + 1;
         statics.t.to(stackPosition + 2);
-        statics.t.append("[>>]<[-]<[<<]");
+        statics.t.append("[>>]<[-]<-<<[<<]");
         statics.t.at(stackPosition);
         statics.t.to(cpos);
     }
-
+    
     public static void free()
     {
         int stackPosition = statics.t.getLargestMemorylocation() + 1;
