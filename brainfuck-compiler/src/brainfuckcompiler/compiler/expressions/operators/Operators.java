@@ -163,6 +163,10 @@ public class Operators
         {
             return new PopNode(lineNumber, parentBlock);
         }
+        if (token.equals("in"))
+        {
+            return new InNode(lineNumber, parentBlock);
+        }
         if (token.matches("[_a-zA-Z][_0-9a-zA-Z]*\\[.*\\]"))
         {
             return new ArrayNode(lineNumber, parentBlock);

@@ -8,9 +8,24 @@ sub outputNumber(x)
 		digits=1
 		push 0
 	while digits >0
-		declare digit,pop+48
+		out pop+48
 		digits=digits-1
-		debug
 
-outputNumber(143)
-debug
+func gcd(a,b)
+	while b!=0
+		declare t,b
+		b=a%b
+		a=t
+	gcd=a
+
+func lcm(a,b)
+	lcm=a*b/gcd(a,b)
+
+declare a,4
+declare b,6
+outs "The lowest common multiple of "
+outputNumber(a)
+outs " and "
+outputNumber(b)
+outs " is "
+outputNumber(lcm(a,b))

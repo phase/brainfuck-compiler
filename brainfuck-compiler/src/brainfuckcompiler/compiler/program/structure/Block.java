@@ -149,6 +149,20 @@ public class Block extends Item
                 continue;
             }
             subLock = true;
+            if (l.getLine().startsWith("out "))
+            {
+                Statement s = new OutStatement(this, l.getLineNumber());
+                pos = s.parseStatement(items, pos);
+                statements.add(s);
+                continue;
+            }
+            if (l.getLine().startsWith("outs "))
+            {
+                Statement s = new OutsStatement(this, l.getLineNumber());
+                pos = s.parseStatement(items, pos);
+                statements.add(s);
+                continue;
+            }
             if (l.getLine().startsWith("push "))
             {
                 Statement s = new PushStatement(this, l.getLineNumber());
@@ -181,6 +195,8 @@ public class Block extends Item
             pos = s.parseStatement(items, pos);
             statements.add(s);
         }
+        items.clear();
+        items = null;
     }
 
     public ArrayList<Variable> getVariableScope()

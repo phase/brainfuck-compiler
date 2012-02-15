@@ -168,13 +168,13 @@ public class ExpressionGenerator
         return ret;
     }
 
-    /**
-     *
-     * @param s
-     * @return
-     */
     public static Node generateExpression(String s, int lineNumber, Block parentBlock)
     {
+        if (s.equals(""))
+        {
+            System.out.println("Empty expression on line " + lineNumber);
+            System.exit(0);
+        }
         return generatePostfixExpression(convertInfixToPostfix(s), lineNumber, parentBlock);
     }
 
