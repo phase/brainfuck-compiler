@@ -1,5 +1,6 @@
 package brainfuckcompiler.compiler.program.statements;
 
+import brainfuckcompiler.compiler.program.structure.Statement;
 import brainfuckcompiler.compiler.program.structure.*;
 import java.util.ArrayList;
 

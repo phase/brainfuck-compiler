@@ -1,5 +1,6 @@
 package brainfuckcompiler.compiler.program.statements;
 
+import brainfuckcompiler.compiler.program.structure.Statement;
 import brainfuckcompiler.compiler.expressions.ExpressionGenerator;
 import brainfuckcompiler.compiler.expressions.Node;
 import brainfuckcompiler.compiler.expressions.nodes.AssignmentOperator;

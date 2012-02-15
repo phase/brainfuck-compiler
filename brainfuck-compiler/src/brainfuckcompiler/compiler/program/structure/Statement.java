@@ -1,14 +1,12 @@
-package brainfuckcompiler.compiler.program.statements;
+package brainfuckcompiler.compiler.program.structure;
 
-import brainfuckcompiler.compiler.program.structure.Block;
-import brainfuckcompiler.compiler.program.structure.Item;
 import java.util.ArrayList;
 
 public abstract class Statement
 {
 
-    Block parentBlock;
-    int lineNumber;
+    protected Block parentBlock;
+    protected int lineNumber;
 
     public Statement(Block parentBlock, int lineNumber)
     {
@@ -22,6 +20,6 @@ public abstract class Statement
 
     public static boolean isValidVariableName(String name)
     {
-        return !name.matches("(dim)|(declare)|(if)|(while)|(dowhile)|(debug)|(else)|(sub)|(func)|(random)|(random)|(push)|(pop)|(in)|(out)|(outs)");
+        return !name.matches("(dim)|(declare)|(if)|(while)|(dowhile)|(debug)|(else)|(sub)|(func)|(random)|(random)|(push)|(pop)|(in)|(out)|(outs)|(ref)");
     }
 }
