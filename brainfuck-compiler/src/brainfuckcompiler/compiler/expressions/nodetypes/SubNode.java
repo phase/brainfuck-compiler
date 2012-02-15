@@ -144,7 +144,15 @@ public class SubNode extends Node
         String token = tokens[index + 1];
         int leftParen = token.indexOf('(');
         subName = token.substring(0, leftParen);
-        String[] expressionStrings = statics.splitOnComma(token.substring(leftParen + 1, token.length() - 1), lineNumber);
+        String expr = token.substring(leftParen + 1, token.length() - 1);
+        String[] expressionStrings;
+        if (expr.trim().equals(""))
+        {
+            expressionStrings = new String[0];
+        } else
+        {
+            expressionStrings = statics.splitOnComma(expr, lineNumber);
+        }
         expressions = new Node[expressionStrings.length];
         for (int i = 0; i < expressions.length; i++)
         {

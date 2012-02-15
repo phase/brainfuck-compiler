@@ -28,6 +28,10 @@ public class SubStatement extends Statement
         String name = line.substring(0, openParen);
         line = line.substring(openParen + 1, line.length() - 1);
         String[] variableNames = statics.splitOnComma(line, lineNumber);
+        if ((variableNames.length == 1) && (variableNames[0].trim().equals("")))
+        {
+            variableNames = new String[0];
+        }
         for (int i = 0; i < variableNames.length; i++)
         {
             variableNames[i] = variableNames[i].trim();
