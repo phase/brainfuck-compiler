@@ -12,9 +12,5 @@ sub outputNumber(x)
 		digits=digits-1
 		debug
 
-'outputNumber(143)
-push 10
-push 5
-pop
-pop
+outputNumber(143)
 debug
