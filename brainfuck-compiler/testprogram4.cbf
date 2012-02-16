@@ -21,7 +21,7 @@ func gcd(a,b)
 func lcm(a,b)
 	lcm=a*b/gcd(a,b)
 
-declare a,4
+declare a,15
 declare b,6
 outs "The lowest common multiple of "
 outputNumber(a)
@@ -29,3 +29,4 @@ outs " and "
 outputNumber(b)
 outs " is "
 outputNumber(lcm(a,b))
+out 10
