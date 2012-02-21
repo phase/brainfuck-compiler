@@ -16,8 +16,49 @@ public class Main
     public static void main(String[] args)
     {
         int numberOfCells = 1;
+        int argspos = 0;
+        if (args[argspos].startsWith("-"))
+        {
+            String s = args[argspos].trim();
+            if (s.length() >= 2)
+            {
+                char c = s.charAt(1);
+                switch (c)
+                {
+                    case 'c':
+                        if (s.length() > 2)
+                        {
+                            String s2 = s.substring(2).trim();
+                            try
+                            {
+                                numberOfCells = Integer.parseInt(s2);
+                                argspos++;
+                            } catch (NumberFormatException ex)
+                            {
+                                System.out.println("Invalid argument: " + args[argspos]);
+                                System.exit(0);
+                            }
+                        } else
+                        {
+                            System.out.println("Please specify number of cells in -c switch.\nOptions are:\n\t1 (default)\n\t2\n\t4");
+                            System.exit(0);
+                        }
+                        break;
+                    default:
+                }
+            } else
+            {
+                System.out.println("Invalid argument: " + s);
+                System.exit(0);
+            }
+        }
+        if (argspos >= args.length)
+        {
+            System.out.println("Please enter a filename to compile");
+            System.exit(0);
+        }
         initializeCompiler();
-        Block b = createBlockFromFile(args[0]);
+        Block b = createBlockFromFile(args[argspos]);
         b.generateStatements();
         b.generate();
         BFStack.free();
