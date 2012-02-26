@@ -1,6 +1,5 @@
 package brainfuckcompiler.compiler.program.statements;
 
-import brainfuckcompiler.compiler.program.structure.Statement;
 import brainfuckcompiler.compiler.expressions.ExpressionGenerator;
 import brainfuckcompiler.compiler.expressions.Node;
 import brainfuckcompiler.compiler.expressions.nodes.AssignmentOperator;
@@ -8,6 +7,7 @@ import brainfuckcompiler.compiler.expressions.nodetypes.SubNode;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.compiler.program.structure.Item;
 import brainfuckcompiler.compiler.program.structure.Line;
+import brainfuckcompiler.compiler.program.structure.Statement;
 import brainfuckcompiler.statics;
 import java.util.ArrayList;
 
@@ -17,6 +17,7 @@ public class IfStatement extends Statement
     Block ifBlock = null;
     Block elseBlock = null;
     Node expression;
+    IfStatement ifStatement = null;
 
     public IfStatement(Block parentBlock, int lineNumber)
     {
@@ -26,7 +27,7 @@ public class IfStatement extends Statement
     public int parseStatement(ArrayList<Item> items, int currentPosition)
     {
         Line l = (Line) items.get(currentPosition);
-        expression = ExpressionGenerator.generateExpression(l.getLine().substring(3), l.getLineNumber(), parentBlock);
+        expression = ExpressionGenerator.generateExpression(l.getLine().substring(l.getLine().startsWith("if ") ? 3 : 7), l.getLineNumber(), parentBlock);
         if (expression instanceof AssignmentOperator)
         {
             System.out.println("Cannot assign a value to a variable on line " + l.getLineNumber());
@@ -94,6 +95,10 @@ public class IfStatement extends Statement
                     {
                         System.out.println("Expected code block at line " + (elseLine.getLineNumber() + 1));
                     }
+                } else if (elseLine.getLine().startsWith("elseif "))
+                {
+                    ifStatement = new IfStatement(parentBlock, lineNumber);
+                    currentPosition = ifStatement.parseStatement(items, currentPosition);
                 }
             }
         }
@@ -103,7 +108,7 @@ public class IfStatement extends Statement
     @Override
     public void generate()
     {
-        if (elseBlock == null)
+        if ((elseBlock == null) && (ifStatement == null))
         {
             generateIf();
         } else
@@ -132,7 +137,13 @@ public class IfStatement extends Statement
         statics.t.celoop(x);
         statics.t.free(x);
         statics.t.loop(elseAddress);
-        elseBlock.generate();
+        if (elseBlock != null)
+        {
+            elseBlock.generate();
+        } else
+        {
+            ifStatement.generate();
+        }
         statics.t.celoop(elseAddress);
         statics.t.free(elseAddress);
     }

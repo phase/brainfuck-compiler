@@ -13,185 +13,185 @@ import java.util.ArrayList;
 public class Main
 {
 
-    public static void main(String[] args)
-    {
-        int numberOfCells = 1;
-        int argspos = 0;
-        if (args[argspos].startsWith("-"))
-        {
-            String s = args[argspos].trim();
-            if (s.length() >= 2)
-            {
-                char c = s.charAt(1);
-                switch (c)
-                {
-                    case 'c':
-                        if (s.length() > 2)
-                        {
-                            String s2 = s.substring(2).trim();
-                            try
-                            {
-                                numberOfCells = Integer.parseInt(s2);
-                                argspos++;
-                            } catch (NumberFormatException ex)
-                            {
-                                System.out.println("Invalid argument: " + args[argspos]);
-                                System.exit(0);
-                            }
-                        } else
-                        {
-                            System.out.println("Please specify number of cells in -c switch.\nOptions are:\n\t1 (default)\n\t2\n\t4");
-                            System.exit(0);
-                        }
-                        break;
-                    default:
-                }
-            } else
-            {
-                System.out.println("Invalid argument: " + s);
-                System.exit(0);
-            }
-        }
-        if (argspos >= args.length)
-        {
-            System.out.println("Please enter a filename to compile");
-            System.exit(0);
-        }
-        initializeCompiler();
-        Block b = createBlockFromFile(args[argspos]);
-        b.generateStatements();
-        b.generate();
-        BFStack.free();
-        statics.gen.free();
-        statics.t.to(0);
-        BFStack.parseStackCalls();
-        switch (numberOfCells)
-        {
-            case 1:
-                output8Bit(statics.t.getB().toString());
-                break;
-            case 2:
-                output16Bit(statics.t.getB().toString());
-                break;
-            case 4:
-                output32Bit(statics.t.getB().toString());
-                break;
-            default:
-                System.out.println("Invalid number of cells specified");
-                break;
-        }
-    }
+	public static void main(String[] args)
+	{
+		int numberOfCells = 1;
+		int argspos = 0;
+		if (args[argspos].startsWith("-"))
+		{
+			String s = args[argspos].trim();
+			if (s.length() >= 2)
+			{
+				char c = s.charAt(1);
+				switch (c)
+				{
+					case 'c':
+						if (s.length() > 2)
+						{
+							String s2 = s.substring(2).trim();
+							try
+							{
+								numberOfCells = Integer.parseInt(s2);
+								argspos++;
+							} catch (NumberFormatException ex)
+							{
+								System.out.println("Invalid argument: " + args[argspos]);
+								System.exit(0);
+							}
+						} else
+						{
+							System.out.println("Please specify number of cells in -c switch.\nOptions are:\n\t1 (default)\n\t2\n\t4");
+							System.exit(0);
+						}
+						break;
+					default:
+				}
+			} else
+			{
+				System.out.println("Invalid argument: " + s);
+				System.exit(0);
+			}
+		}
+		if (argspos >= args.length)
+		{
+			System.out.println("Please enter a filename to compile");
+			System.exit(0);
+		}
+		initializeCompiler();
+		Block b = createBlockFromFile(args[argspos]);
+		b.generateStatements();
+		b.generate();
+		BFStack.free();
+		statics.gen.free();
+		statics.t.to(0);
+		BFStack.parseStackCalls();
+		switch (numberOfCells)
+		{
+			case 1:
+				output8Bit(statics.t.getB().toString());
+				break;
+			case 2:
+				output16Bit(statics.t.getB().toString());
+				break;
+			case 4:
+				output32Bit(statics.t.getB().toString());
+				break;
+			default:
+				System.out.println("Invalid number of cells specified");
+				break;
+		}
+	}
 
-    private static void initializeCompiler()
-    {
-        statics.t = new BrainfuckTools(30000);
-        statics.ops = new Operators();
-        statics.gen = new RandomNumberGenerator();
-        statics.ops.createRegex();
-    }
+	private static void initializeCompiler()
+	{
+		statics.t = new BrainfuckTools(30000);
+		statics.ops = new Operators();
+		statics.gen = new RandomNumberGenerator();
+		statics.ops.createRegex();
+	}
 
-    private static Block createBlockFromFile(String path)
-    {
-        LineReader r = new LineReader(path);
-        ArrayList<Item> l = new ArrayList<Item>();
-        int startingLineNumber = -1;
-        if (r.isOpen())
-        {
-            Line line;
-            while ((line = r.readLine()) != null)
-            {
-                if (line.getIndentLevel() >= 0)
-                {
-                    l.add(line);
-                    if (startingLineNumber == -1)
-                    {
-                        startingLineNumber = line.getLineNumber();
-                    }
-                }
-            }
-            r.closeFile();
-        }
-        return new Block(l, 0, null, startingLineNumber);
-    }
+	private static Block createBlockFromFile(String path)
+	{
+		LineReader r = new LineReader(path);
+		ArrayList<Item> l = new ArrayList<Item>();
+		int startingLineNumber = -1;
+		if (r.isOpen())
+		{
+			Line line;
+			while ((line = r.readLine()) != null)
+			{
+				if (line.getIndentLevel() >= 0)
+				{
+					l.add(line);
+					if (startingLineNumber == -1)
+					{
+						startingLineNumber = line.getLineNumber();
+					}
+				}
+			}
+			r.closeFile();
+		}
+		return new Block(l, 0, null, startingLineNumber);
+	}
 
-    private static void output8Bit(String s)
-    {
-        for (int i = 0; i < s.length(); i++)
-        {
-            if (i > 0 && (i % 80 == 0))
-            {
-                System.out.println();
-            }
-            System.out.print(s.charAt(i));
-        }
-        System.out.println();
-    }
+	private static void output8Bit(String s)
+	{
+		for (int i = 0; i < s.length(); i++)
+		{
+			if (i > 0 && (i % 80 == 0))
+			{
+				System.out.println();
+			}
+			System.out.print(s.charAt(i));
+		}
+		System.out.println();
+	}
 
-    private static void output16Bit(String s)
-    {
-        System.out.print(">");
-        for (int i = 0; i < s.length(); i++)
-        {
-            char c = s.charAt(i);
-            switch (c)
-            {
-                case '[':
-                    System.out.print("[>>+>>>+<<<<<-]>>>>>[<<<<<+>>>>>-]<<<[[-]<<<+>>>]<[>+>>>+<<<<-]>>>>[<<<<+>>>>-]<<<[[-]<<<+>>>]<<<[[-]>");
-                    break;
-                case ']':
-                    System.out.print("[>>+>>>+<<<<<-]>>>>>[<<<<<+>>>>>-]<<<[[-]<<<+>>>]<[>+>>>+<<<<-]>>>>[<<<<+>>>>-]<<<[[-]<<<+>>>]<<<]>");
-                    break;
-                case '+':
-                    System.out.print("+[<+>>>+<<-]<[>+<-]+>>>[<<<->>>[-]]<<<[->>+<<]>");
-                    break;
-                case '-':
-                    System.out.print("[<+>>>+<<-]<[>+<-]+>>>[<<<->>>[-]]<<<[->>-<<]>-");
-                    break;
-                case '<':
-                    System.out.print("<<<");
-                    break;
-                case '>':
-                    System.out.print(">>>");
-                    break;
-                default:
-                    System.out.print(c);
-                    break;
-            }
-        }
-        System.out.println();
-    }
+	private static void output16Bit(String s)
+	{
+		System.out.print(">");
+		for (int i = 0; i < s.length(); i++)
+		{
+			char c = s.charAt(i);
+			switch (c)
+			{
+				case '[':
+					System.out.print("[>>+>>>+<<<<<-]>>>>>[<<<<<+>>>>>-]<<<[[-]<<<+>>>]<[>+>>>+<<<<-]>>>>[<<<<+>>>>-]<<<[[-]<<<+>>>]<<<[[-]>");
+					break;
+				case ']':
+					System.out.print("[>>+>>>+<<<<<-]>>>>>[<<<<<+>>>>>-]<<<[[-]<<<+>>>]<[>+>>>+<<<<-]>>>>[<<<<+>>>>-]<<<[[-]<<<+>>>]<<<]>");
+					break;
+				case '+':
+					System.out.print("+[<+>>>+<<-]<[>+<-]+>>>[<<<->>>[-]]<<<[->>+<<]>");
+					break;
+				case '-':
+					System.out.print("[<+>>>+<<-]<[>+<-]+>>>[<<<->>>[-]]<<<[->>-<<]>-");
+					break;
+				case '<':
+					System.out.print("<<<");
+					break;
+				case '>':
+					System.out.print(">>>");
+					break;
+				default:
+					System.out.print(c);
+					break;
+			}
+		}
+		System.out.println();
+	}
 
-    private static void output32Bit(String s)
-    {
-        System.out.print(">");
-        for (int i = 0; i < s.length(); i++)
-        {
-            char c = s.charAt(i);
-            switch (c)
-            {
-                case '[':
-                    System.out.print("[>>>>+>>>>>+<<<<<<<<<-]>>>>>>>>>[<<<<<<<<<+>>>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<<[>>>+>>>>>+<<<<<<<<-]>>>>>>>>[<<<<<<<<+>>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<[>>+>>>>>+<<<<<<<-]>>>>>>>[<<<<<<<+>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<[>+>>>>>+<<<<<<-]>>>>>>[<<<<<<+>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<<<<[[-]>");
-                    break;
-                case ']':
-                    System.out.print("[>>>>+>>>>>+<<<<<<<<<-]>>>>>>>>>[<<<<<<<<<+>>>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<<[>>>+>>>>>+<<<<<<<<-]>>>>>>>>[<<<<<<<<+>>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<[>>+>>>>>+<<<<<<<-]>>>>>>>[<<<<<<<+>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<[>+>>>>>+<<<<<<-]>>>>>>[<<<<<<+>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<<<<]>");
-                    break;
-                case '+':
-                    System.out.print("+[<+>>>>>+<<<<-]<[>+<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>+[<<+>>>>>+<<<-]<<[>>+<<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>>+[<<<+>>>>>+<<-]<<<[>>>+<<<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>>>+<<<<]]]>");
-                    break;
-                case '-':
-                    System.out.print("[<+>>>>>+<<<<-]<[>+<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>[<<+>>>>>+<<<-]<<[>>+<<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>>[<<<+>>>>>+<<-]<<<[>>>+<<<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>>>-<<<<]>>>-<<<]>>-<<]>-");
-                    break;
-                case '<':
-                    System.out.print("<<<<<");
-                    break;
-                case '>':
-                    System.out.print(">>>>>");
-                    break;
-                default:
-                    System.out.print(c);
-                    break;
-            }
-        }
-        System.out.println();
-    }
+	private static void output32Bit(String s)
+	{
+		System.out.print(">");
+		for (int i = 0; i < s.length(); i++)
+		{
+			char c = s.charAt(i);
+			switch (c)
+			{
+				case '[':
+					System.out.print("[>>>>+>>>>>+<<<<<<<<<-]>>>>>>>>>[<<<<<<<<<+>>>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<<[>>>+>>>>>+<<<<<<<<-]>>>>>>>>[<<<<<<<<+>>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<[>>+>>>>>+<<<<<<<-]>>>>>>>[<<<<<<<+>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<[>+>>>>>+<<<<<<-]>>>>>>[<<<<<<+>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<<<<[[-]>");
+					break;
+				case ']':
+					System.out.print("[>>>>+>>>>>+<<<<<<<<<-]>>>>>>>>>[<<<<<<<<<+>>>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<<[>>>+>>>>>+<<<<<<<<-]>>>>>>>>[<<<<<<<<+>>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<[>>+>>>>>+<<<<<<<-]>>>>>>>[<<<<<<<+>>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<[>+>>>>>+<<<<<<-]>>>>>>[<<<<<<+>>>>>>-]<<<<<[[-]<<<<<+>>>>>]<<<<<]>");
+					break;
+				case '+':
+					System.out.print("+[<+>>>>>+<<<<-]<[>+<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>+[<<+>>>>>+<<<-]<<[>>+<<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>>+[<<<+>>>>>+<<-]<<<[>>>+<<<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>>>+<<<<]]]>");
+					break;
+				case '-':
+					System.out.print("[<+>>>>>+<<<<-]<[>+<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>[<<+>>>>>+<<<-]<<[>>+<<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>>[<<<+>>>>>+<<-]<<<[>>>+<<<-]+>>>>>[<<<<<->>>>>[-]]<<<<<[->>>>-<<<<]>>>-<<<]>>-<<]>-");
+					break;
+				case '<':
+					System.out.print("<<<<<");
+					break;
+				case '>':
+					System.out.print(">>>>>");
+					break;
+				default:
+					System.out.print(c);
+					break;
+			}
+		}
+		System.out.println();
+	}
 }

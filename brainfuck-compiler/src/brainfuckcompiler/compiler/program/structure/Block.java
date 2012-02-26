@@ -93,6 +93,11 @@ public class Block extends Item
                 System.out.println("else without an if found at line " + l.getLineNumber());
                 System.exit(0);
             }
+            if (l.getLine().startsWith("elseif "))
+            {
+                System.out.println("elseif without an if found at line " + l.getLineNumber());
+                System.exit(0);
+            }
             if (l.getLine().startsWith("declare "))
             {
                 Statement s = new DeclareStatement(this, l.getLineNumber());
