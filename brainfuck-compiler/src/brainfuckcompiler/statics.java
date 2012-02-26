@@ -60,7 +60,7 @@ public class statics
                 if (counter > 0)
                 {
                     System.out.println("Unmatched ( on line " + lineNumber);
-                    System.exit(0);
+                    System.exit(1);
                 }
                 continue;
             }
@@ -88,7 +88,7 @@ public class statics
                 if (counter > 0)
                 {
                     System.out.println("Unmatched [ on line " + lineNumber);
-                    System.exit(0);
+                    System.exit(1);
                 }
                 continue;
             }

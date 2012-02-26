@@ -23,7 +23,7 @@ public class SubStatement extends Statement
         if ((openParen == -1) && (line.indexOf(')') != (line.length() - 1)))
         {
             System.out.println("Invalid sub declaration at line " + l.getLineNumber());
-            System.exit(0);
+            System.exit(1);
         }
         String name = line.substring(0, openParen);
         line = line.substring(openParen + 1, line.length() - 1);
@@ -38,21 +38,21 @@ public class SubStatement extends Statement
             if ((!Statement.isValidVariableName(variableNames[i])) || (!variableNames[i].matches("[_a-zA-Z][_0-9a-zA-Z]*")))
             {
                 System.out.println("Invalid variable name \"" + variableNames[i] + "\" at line " + lineNumber);
-                System.exit(0);
+                System.exit(1);
             }
         }
         currentPosition++;
         if (currentPosition >= items.size())
         {
             System.out.println("Expected code block at line " + (l.getLineNumber() + 1));
-            System.exit(0);
+            System.exit(1);
         }
         Item item = items.get(currentPosition);
         currentPosition++;
         if (!(item instanceof Block))
         {
             System.out.println("Expected code block at line " + (l.getLineNumber() + 1));
-            System.exit(0);
+            System.exit(1);
         }
         ((Block) item).generateStatements();
         sub = new Subroutine(name, variableNames, (Block) item);
@@ -65,7 +65,7 @@ public class SubStatement extends Statement
         if (subNameExists())
         {
             System.out.println("Double declaration of subroutine/function at line " + lineNumber);
-            System.exit(0);
+            System.exit(1);
         }
         sub.setExternalAccessibleVariables(parentBlock.getVariableScope(), parentBlock.getArrayScope(), parentBlock.getSubScope(), parentBlock.getFuncScope());
         parentBlock.getSubScope().add(sub);

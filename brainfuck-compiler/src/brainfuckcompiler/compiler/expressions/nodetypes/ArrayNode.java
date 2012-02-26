@@ -47,7 +47,7 @@ public class ArrayNode extends Node
             if (v.getName().equals(arrayName))
             {
                 System.out.println("\"" + arrayName + "\" refers to a variable not an array at line " + lineNumber);
-                System.exit(0);
+                System.exit(1);
             }
         }
         Block b = parentBlock;
@@ -64,7 +64,7 @@ public class ArrayNode extends Node
             b = b.getParentBlock();
         }
         System.out.println("Array not found: " + arrayName + " at line " + lineNumber);
-        System.exit(0);
+        System.exit(1);
         return null;
     }
 

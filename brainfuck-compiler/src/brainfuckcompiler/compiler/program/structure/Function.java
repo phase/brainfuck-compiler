@@ -71,7 +71,7 @@ public class Function
         if (memoryPositions.length != variableNames.length)
         {
             System.out.println("Invalid number of arguments at " + lineNumber);
-            System.exit(0);
+            System.exit(1);
         }
         for (int i = 0; i < memoryPositions.length; i++)
         {

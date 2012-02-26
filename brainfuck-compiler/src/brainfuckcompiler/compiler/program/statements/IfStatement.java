@@ -31,12 +31,12 @@ public class IfStatement extends Statement
         if (expression instanceof AssignmentOperator)
         {
             System.out.println("Cannot assign a value to a variable on line " + l.getLineNumber());
-            System.exit(0);
+            System.exit(1);
         }
         if ((expression instanceof SubNode) && (((SubNode) expression).getType() == SubNode.SUB))
         {
             System.out.println("Cannot use a sub in an if statement on line " + l.getLineNumber());
-            System.exit(0);
+            System.exit(1);
         }
         currentPosition++;
         if (currentPosition < items.size())
@@ -51,17 +51,17 @@ public class IfStatement extends Statement
                 } else
                 {
                     System.out.println("Invalid indent level at line " + i.getLineNumber());
-                    System.exit(0);
+                    System.exit(1);
                 }
             } else
             {
                 System.out.println("Expected code block at line " + (l.getLineNumber() + 1));
-                System.exit(0);
+                System.exit(1);
             }
         } else
         {
             System.out.println("Expected code block at line " + (l.getLineNumber() + 1));
-            System.exit(0);
+            System.exit(1);
         }
         currentPosition++;
         if (currentPosition < items.size())

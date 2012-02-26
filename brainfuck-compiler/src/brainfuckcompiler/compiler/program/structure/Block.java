@@ -53,7 +53,7 @@ public class Block extends Item
                 } else
                 {
                     System.out.println("Invalid indent level at line " + blockLineNumber);
-                    System.exit(0);
+                    System.exit(1);
                 }
             }
         }
@@ -91,12 +91,12 @@ public class Block extends Item
             if (l.getLine().equals("else"))
             {
                 System.out.println("else without an if found at line " + l.getLineNumber());
-                System.exit(0);
+                System.exit(1);
             }
             if (l.getLine().startsWith("elseif "))
             {
                 System.out.println("elseif without an if found at line " + l.getLineNumber());
-                System.exit(0);
+                System.exit(1);
             }
             if (l.getLine().startsWith("declare "))
             {
@@ -124,12 +124,12 @@ public class Block extends Item
                 if (indentLevel != 0)
                 {
                     System.out.println("Subroutines must be declared at indent level 0. Line " + l.getLineNumber());
-                    System.exit(0);
+                    System.exit(1);
                 }
                 if (subLock)
                 {
                     System.out.println("Only declare, dim and debug statements are allowed before function or subroutine declarations. Line " + l.getLineNumber());
-                    System.exit(0);
+                    System.exit(1);
                 }
                 Statement s = new SubStatement(this, l.getLineNumber());
                 pos = s.parseStatement(items, pos);
@@ -141,12 +141,12 @@ public class Block extends Item
                 if (indentLevel != 0)
                 {
                     System.out.println("Functions must be declared at indent level 0. Line " + l.getLineNumber());
-                    System.exit(0);
+                    System.exit(1);
                 }
                 if (subLock)
                 {
                     System.out.println("Only declare, dim and debug statements are allowed before function or subroutine declarations. Line " + l.getLineNumber());
-                    System.exit(0);
+                    System.exit(1);
                 }
                 Statement s = new FuncStatement(this, l.getLineNumber());
                 pos = s.parseStatement(items, pos);

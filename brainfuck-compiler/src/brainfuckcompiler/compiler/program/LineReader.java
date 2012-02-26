@@ -22,7 +22,7 @@ public class LineReader
         } catch (IOException ex)
         {
             System.out.println("Could not open file");
-            System.exit(0);
+            System.exit(1);
         }
     }
 

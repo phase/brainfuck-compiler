@@ -29,7 +29,7 @@ public class ExpressionStatement extends Statement
         if (!((expression instanceof AssignmentOperator) || (expression instanceof SubNode) || (expression instanceof PopNode)))
         {
             System.out.println("Expression on line " + lineNumber + " must be an assignment, a sub/function call or a pop");
-            System.exit(0);
+            System.exit(1);
         }
         currentPosition++;
         return currentPosition;

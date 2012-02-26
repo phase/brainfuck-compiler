@@ -36,7 +36,7 @@ public class PushStatement extends Statement
         if ((expression instanceof SubNode) && (((SubNode) expression).getType() == SubNode.SUB))
         {
             System.out.println("Cannot use sub in a push statement on line " + lineNumber);
-            System.exit(0);
+            System.exit(1);
         }
         int p = expression.generateBF();
         statics.t.to(p);

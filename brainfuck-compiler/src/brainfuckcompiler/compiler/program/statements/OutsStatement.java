@@ -29,7 +29,7 @@ public class OutsStatement extends Statement
         } else
         {
             System.out.println("Invalid string on line " + l.getLineNumber());
-            System.exit(0);
+            System.exit(1);
         }
         return currentPosition;
     }

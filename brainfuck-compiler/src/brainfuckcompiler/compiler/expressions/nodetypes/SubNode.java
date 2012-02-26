@@ -37,7 +37,7 @@ public class SubNode extends Node
         } else
         {
             System.out.println("\"" + subName + "\" not found on line " + lineNumber);
-            System.exit(0);
+            System.exit(1);
             return -1;
         }
     }
@@ -47,7 +47,7 @@ public class SubNode extends Node
         if (parentNode != null)
         {
             System.out.println("A subroutine call cannot be used in an expression. Line " + lineNumber);
-            System.exit(0);
+            System.exit(1);
         }
         Subroutine sub = getSubroutine();
         int[] memoryLocations = new int[expressions.length];
@@ -56,7 +56,7 @@ public class SubNode extends Node
             if ((expressions[i] instanceof SubNode) && (((SubNode) expressions[i]).getType() == SUB))
             {
                 System.out.println("Cannot use a subroutine as a parameter. Line " + lineNumber);
-                System.exit(0);
+                System.exit(1);
             }
             memoryLocations[i] = expressions[i].generateBF();
         }
@@ -72,7 +72,7 @@ public class SubNode extends Node
             if ((expressions[i] instanceof SubNode) && (((SubNode) expressions[i]).getType() == SUB))
             {
                 System.out.println("Cannot use a subroutine as a parameter. Line " + lineNumber);
-                System.exit(0);
+                System.exit(1);
             }
             memoryLocations[i] = expressions[i].generateBF();
         }
@@ -160,7 +160,7 @@ public class SubNode extends Node
             if (n instanceof AssignmentOperator)
             {
                 System.out.println("Cannot have an assignment operator as a parameter. Line " + lineNumber);
-                System.exit(0);
+                System.exit(1);
             }
             expressions[i] = n;
         }
