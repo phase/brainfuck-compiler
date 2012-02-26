@@ -28,7 +28,7 @@ public class OutsStatement extends Statement
             string = s.substring(1, s.length() - 1);
         } else
         {
-            System.out.println("Invalid string on line " + l.getLineNumber());
+            System.err.println("Invalid string on line " + l.getLineNumber());
             System.exit(1);
         }
         return currentPosition;

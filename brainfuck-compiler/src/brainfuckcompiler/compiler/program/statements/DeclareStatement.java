@@ -31,22 +31,22 @@ public class DeclareStatement extends Statement
         String[] parts = statics.splitOnComma(l.getLine().substring(8), l.getLineNumber());
         if (parts.length == 0)
         {
-            System.out.println("Incomplete declare statement at line " + l.getLineNumber());
+            System.err.println("Incomplete declare statement at line " + l.getLineNumber());
             System.exit(1);
         }
         if (parts.length > 2)
         {
-            System.out.println("Invalid number of arguments in declare statement at line " + l.getLineNumber());
+            System.err.println("Invalid number of arguments in declare statement at line " + l.getLineNumber());
         }
         if (!parts[0].trim().matches("([_a-zA-Z][_0-9a-zA-Z]*)"))
         {
-            System.out.println("Invalid variable name at line " + l.getLineNumber());
+            System.err.println("Invalid variable name at line " + l.getLineNumber());
             System.exit(1);
         }
         variableName = parts[0].trim();
         if (!Statement.isValidVariableName(variableName))
         {
-            System.out.println("Invalid variable name at line " + lineNumber);
+            System.err.println("Invalid variable name at line " + lineNumber);
             System.exit(1);
         }
         if (parts.length == 1)
@@ -56,7 +56,7 @@ public class DeclareStatement extends Statement
         expression = ExpressionGenerator.generateExpression(parts[1], l.getLineNumber(), parentBlock);
         if (expression instanceof AssignmentOperator)
         {
-            System.out.println("Initializer on line " + l.getLineNumber() + " cannot use an assignment operator");
+            System.err.println("Initializer on line " + l.getLineNumber() + " cannot use an assignment operator");
             System.exit(1);
         }
         return currentPosition;
@@ -73,7 +73,7 @@ public class DeclareStatement extends Statement
             {
                 if ((expression instanceof SubNode) && (((SubNode) expression).getType() == SubNode.SUB))
                 {
-                    System.out.println("Cannot use sub in an initializer on line " + lineNumber);
+                    System.err.println("Cannot use sub in an initializer on line " + lineNumber);
                     System.exit(1);
                 }
                 int address = expression.generateBF();
@@ -82,7 +82,7 @@ public class DeclareStatement extends Statement
             }
         } else
         {
-            System.out.println("Double declaration of variable " + variableName + " at line " + lineNumber);
+            System.err.println("Double declaration of variable " + variableName + " at line " + lineNumber);
             System.exit(1);
         }
     }

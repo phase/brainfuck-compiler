@@ -35,12 +35,12 @@ public class Main
 								argspos++;
 							} catch (NumberFormatException ex)
 							{
-								System.out.println("Invalid argument: " + args[argspos]);
+								System.err.println("Invalid argument: " + args[argspos]);
 								System.exit(1);
 							}
 						} else
 						{
-							System.out.println("Please specify number of cells in -c switch.\nOptions are:\n\t1 (default)\n\t2\n\t4");
+							System.err.println("Please specify number of cells in -c switch.\nOptions are:\n\t1 (default)\n\t2\n\t4");
 							System.exit(1);
 						}
 						break;
@@ -48,13 +48,13 @@ public class Main
 				}
 			} else
 			{
-				System.out.println("Invalid argument: " + s);
+				System.err.println("Invalid argument: " + s);
 				System.exit(1);
 			}
 		}
 		if (argspos >= args.length)
 		{
-			System.out.println("Please enter a filename to compile");
+			System.err.println("Please enter a filename to compile");
 			System.exit(1);
 		}
 		initializeCompiler();
@@ -77,7 +77,7 @@ public class Main
 				output32Bit(statics.t.getB().toString());
 				break;
 			default:
-				System.out.println("Invalid number of cells specified");
+				System.err.println("Invalid number of cells specified");
 				break;
 		}
 	}

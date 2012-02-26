@@ -108,7 +108,7 @@ public class ExpressionGenerator
                 }
                 if (!found)
                 {
-                    System.out.println("No matching ) found");
+                    System.err.println("No matching ) found");
                     System.exit(1);
                 }
             } else if (s.contains("["))
@@ -135,7 +135,7 @@ public class ExpressionGenerator
                 }
                 if (!found)
                 {
-                    System.out.println("No matching ] found");
+                    System.err.println("No matching ] found");
                     System.exit(1);
                 }
             } else if (s.matches("[0-9]+"))
@@ -154,7 +154,7 @@ public class ExpressionGenerator
                         m.reset(e);
                     } else
                     {
-                        System.out.println("Could not match token");
+                        System.err.println("Could not match token");
                         System.exit(1);
                     }
                 }
@@ -172,7 +172,7 @@ public class ExpressionGenerator
     {
         if (s.equals(""))
         {
-            System.out.println("Empty expression on line " + lineNumber);
+            System.err.println("Empty expression on line " + lineNumber);
             System.exit(1);
         }
         return generatePostfixExpression(convertInfixToPostfix(s), lineNumber, parentBlock);
@@ -183,7 +183,7 @@ public class ExpressionGenerator
         Node tree = Operators.createNode(tokens[tokens.length - 1], lineNumber, parentBlock);
         if (tree.populate(tokens, tokens.length - 2) != -1)
         {
-            System.out.println("Error in expression. Not all detected tokens were used. Please recheck Expression on line " + lineNumber);
+            System.err.println("Error in expression. Not all detected tokens were used. Please recheck Expression on line " + lineNumber);
             System.exit(1);
         }
         return tree;

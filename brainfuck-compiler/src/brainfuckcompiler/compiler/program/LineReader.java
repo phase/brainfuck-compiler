@@ -21,7 +21,7 @@ public class LineReader
             open = true;
         } catch (IOException ex)
         {
-            System.out.println("Could not open file");
+            System.err.println("Could not open file");
             System.exit(1);
         }
     }
@@ -92,7 +92,7 @@ public class LineReader
             }
         } catch (IOException ex)
         {
-            System.out.println("Error in closing file");
+            System.err.println("Error in closing file");
         }
         open = false;
     }

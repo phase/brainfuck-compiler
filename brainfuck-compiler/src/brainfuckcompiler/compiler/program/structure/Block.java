@@ -52,7 +52,7 @@ public class Block extends Item
                     items.add(i, new Block(newBlockItems, currentIndentLevel, this, blockLineNumber));
                 } else
                 {
-                    System.out.println("Invalid indent level at line " + blockLineNumber);
+                    System.err.println("Invalid indent level at line " + blockLineNumber);
                     System.exit(1);
                 }
             }
@@ -90,12 +90,12 @@ public class Block extends Item
             Line l = (Line) i;
             if (l.getLine().equals("else"))
             {
-                System.out.println("else without an if found at line " + l.getLineNumber());
+                System.err.println("else without an if found at line " + l.getLineNumber());
                 System.exit(1);
             }
             if (l.getLine().startsWith("elseif "))
             {
-                System.out.println("elseif without an if found at line " + l.getLineNumber());
+                System.err.println("elseif without an if found at line " + l.getLineNumber());
                 System.exit(1);
             }
             if (l.getLine().startsWith("declare "))
@@ -123,12 +123,12 @@ public class Block extends Item
             {
                 if (indentLevel != 0)
                 {
-                    System.out.println("Subroutines must be declared at indent level 0. Line " + l.getLineNumber());
+                    System.err.println("Subroutines must be declared at indent level 0. Line " + l.getLineNumber());
                     System.exit(1);
                 }
                 if (subLock)
                 {
-                    System.out.println("Only declare, dim and debug statements are allowed before function or subroutine declarations. Line " + l.getLineNumber());
+                    System.err.println("Only declare, dim and debug statements are allowed before function or subroutine declarations. Line " + l.getLineNumber());
                     System.exit(1);
                 }
                 Statement s = new SubStatement(this, l.getLineNumber());
@@ -140,12 +140,12 @@ public class Block extends Item
             {
                 if (indentLevel != 0)
                 {
-                    System.out.println("Functions must be declared at indent level 0. Line " + l.getLineNumber());
+                    System.err.println("Functions must be declared at indent level 0. Line " + l.getLineNumber());
                     System.exit(1);
                 }
                 if (subLock)
                 {
-                    System.out.println("Only declare, dim and debug statements are allowed before function or subroutine declarations. Line " + l.getLineNumber());
+                    System.err.println("Only declare, dim and debug statements are allowed before function or subroutine declarations. Line " + l.getLineNumber());
                     System.exit(1);
                 }
                 Statement s = new FuncStatement(this, l.getLineNumber());

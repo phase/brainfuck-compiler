@@ -28,7 +28,7 @@ public class ExpressionStatement extends Statement
         expression = ExpressionGenerator.generateExpression(((Line) items.get(currentPosition)).getLine(), lineNumber, parentBlock);
         if (!((expression instanceof AssignmentOperator) || (expression instanceof SubNode) || (expression instanceof PopNode)))
         {
-            System.out.println("Expression on line " + lineNumber + " must be an assignment, a sub/function call or a pop");
+            System.err.println("Expression on line " + lineNumber + " must be an assignment, a sub/function call or a pop");
             System.exit(1);
         }
         currentPosition++;
@@ -53,7 +53,7 @@ public class ExpressionStatement extends Statement
                 return;
             } else if (s.getType() == SubNode.NOTFOUND)
             {
-                System.out.println("\"" + s.getSubName() + "\" not found on line " + lineNumber);
+                System.err.println("\"" + s.getSubName() + "\" not found on line " + lineNumber);
             }
         } else if (expression instanceof PopNode)
         {

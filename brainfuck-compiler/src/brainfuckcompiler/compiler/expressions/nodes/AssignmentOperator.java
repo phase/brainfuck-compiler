@@ -21,7 +21,7 @@ public class AssignmentOperator extends BinaryOperator
     {
         if (parentNode != null)
         {
-            System.out.println("Assignment operator must be root node of expression tree at line " + lineNumber);
+            System.err.println("Assignment operator must be root node of expression tree at line " + lineNumber);
             System.exit(1);
         }
         if (left instanceof VariableNode)
@@ -39,7 +39,7 @@ public class AssignmentOperator extends BinaryOperator
             a.set(pos, val);
         } else
         {
-            System.out.println("Assignment must be done to an array or a variable at line " + lineNumber);
+            System.err.println("Assignment must be done to an array or a variable at line " + lineNumber);
             System.exit(1);
         }
         return -1;

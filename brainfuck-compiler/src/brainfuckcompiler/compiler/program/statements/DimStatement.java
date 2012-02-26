@@ -28,18 +28,18 @@ public class DimStatement extends Statement
         String[] parts = statics.splitOnComma(l.getLine().substring(4), l.getLineNumber());
         if (parts.length != 2)
         {
-            System.out.println("Incomplete declare statement at line " + l.getLineNumber());
+            System.err.println("Incomplete declare statement at line " + l.getLineNumber());
             System.exit(1);
         }
         if (!parts[0].trim().matches("[_a-zA-Z][_0-9a-zA-Z]*"))
         {
-            System.out.println("Invalid array name at line " + l.getLineNumber());
+            System.err.println("Invalid array name at line " + l.getLineNumber());
             System.exit(1);
         }
         arrayName = parts[0].trim();
         if (!Statement.isValidVariableName(arrayName))
         {
-            System.out.println("Invalid array name at line " + lineNumber);
+            System.err.println("Invalid array name at line " + lineNumber);
             System.exit(1);
         }
         try
@@ -47,7 +47,7 @@ public class DimStatement extends Statement
             arraySize = Integer.parseInt(parts[1].trim());
         } catch (NumberFormatException ex)
         {
-            System.out.println("Invalid array size at line " + lineNumber);
+            System.err.println("Invalid array size at line " + lineNumber);
             System.exit(1);
         }
         return currentPosition;
@@ -58,7 +58,7 @@ public class DimStatement extends Statement
     {
         if (nameExists())
         {
-            System.out.println("Double declaration of array " + arrayName + " at line " + lineNumber);
+            System.err.println("Double declaration of array " + arrayName + " at line " + lineNumber);
             System.exit(1);
         }
         parentBlock.getArrayScope().add(new Array(arrayName, arraySize));

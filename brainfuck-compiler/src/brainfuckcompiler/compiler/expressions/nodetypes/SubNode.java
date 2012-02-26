@@ -36,7 +36,7 @@ public class SubNode extends Node
             return generateFunc();
         } else
         {
-            System.out.println("\"" + subName + "\" not found on line " + lineNumber);
+            System.err.println("\"" + subName + "\" not found on line " + lineNumber);
             System.exit(1);
             return -1;
         }
@@ -46,7 +46,7 @@ public class SubNode extends Node
     {
         if (parentNode != null)
         {
-            System.out.println("A subroutine call cannot be used in an expression. Line " + lineNumber);
+            System.err.println("A subroutine call cannot be used in an expression. Line " + lineNumber);
             System.exit(1);
         }
         Subroutine sub = getSubroutine();
@@ -55,7 +55,7 @@ public class SubNode extends Node
         {
             if ((expressions[i] instanceof SubNode) && (((SubNode) expressions[i]).getType() == SUB))
             {
-                System.out.println("Cannot use a subroutine as a parameter. Line " + lineNumber);
+                System.err.println("Cannot use a subroutine as a parameter. Line " + lineNumber);
                 System.exit(1);
             }
             memoryLocations[i] = expressions[i].generateBF();
@@ -71,7 +71,7 @@ public class SubNode extends Node
         {
             if ((expressions[i] instanceof SubNode) && (((SubNode) expressions[i]).getType() == SUB))
             {
-                System.out.println("Cannot use a subroutine as a parameter. Line " + lineNumber);
+                System.err.println("Cannot use a subroutine as a parameter. Line " + lineNumber);
                 System.exit(1);
             }
             memoryLocations[i] = expressions[i].generateBF();
@@ -159,7 +159,7 @@ public class SubNode extends Node
             Node n = ExpressionGenerator.generateExpression(expressionStrings[i].trim(), lineNumber, parentBlock);
             if (n instanceof AssignmentOperator)
             {
-                System.out.println("Cannot have an assignment operator as a parameter. Line " + lineNumber);
+                System.err.println("Cannot have an assignment operator as a parameter. Line " + lineNumber);
                 System.exit(1);
             }
             expressions[i] = n;

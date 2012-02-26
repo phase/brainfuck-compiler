@@ -29,7 +29,7 @@ public class EqualityOperator extends BinaryOperator
     {
         if (!((!left.returnsBoolean) && (!right.returnsBoolean)))
         {
-            System.out.println("= must take two non boolean operands");
+            System.err.println("= must take two non boolean operands");
             System.exit(-1);
         }
         int x = left.generateBF(), y = right.generateBF();

@@ -45,7 +45,7 @@ public class VariableNode extends Node
         {
             if (a.getName().equals(variableName))
             {
-                System.out.println("\"" + variableName + "\" refers to an array not a variable at line " + lineNumber);
+                System.err.println("\"" + variableName + "\" refers to an array not a variable at line " + lineNumber);
                 System.exit(1);
             }
         }
@@ -62,7 +62,7 @@ public class VariableNode extends Node
             }
             b = b.getParentBlock();
         }
-        System.out.println("Variable not found: " + variableName + " at line " + lineNumber);
+        System.err.println("Variable not found: " + variableName + " at line " + lineNumber);
         System.exit(1);
         return null;
     }

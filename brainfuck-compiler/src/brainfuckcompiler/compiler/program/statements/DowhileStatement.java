@@ -28,12 +28,12 @@ public class DowhileStatement extends Statement
         expression = ExpressionGenerator.generateExpression(l.getLine().substring(8), l.getLineNumber(), parentBlock);
         if (expression instanceof AssignmentOperator)
         {
-            System.out.println("Cannot assign a value to a variable on line " + l.getLineNumber());
+            System.err.println("Cannot assign a value to a variable on line " + l.getLineNumber());
             System.exit(1);
         }
         if ((expression instanceof SubNode) && (((SubNode) expression).getType() == SubNode.SUB))
         {
-            System.out.println("Cannot use a sub in a dowhile statement on line " + l.getLineNumber());
+            System.err.println("Cannot use a sub in a dowhile statement on line " + l.getLineNumber());
             System.exit(1);
         }
 
@@ -50,17 +50,17 @@ public class DowhileStatement extends Statement
                     currentPosition++;
                 } else
                 {
-                    System.out.println("Invalid indent level at line " + (l.getIndentLevel() + 1));
+                    System.err.println("Invalid indent level at line " + (l.getIndentLevel() + 1));
                     System.exit(1);
                 }
             } else
             {
-                System.out.println("Expected code block at line " + (l.getLine() + 1));
+                System.err.println("Expected code block at line " + (l.getLine() + 1));
                 System.exit(1);
             }
         } else
         {
-            System.out.println("Expected code block at line " + (l.getLine() + 1));
+            System.err.println("Expected code block at line " + (l.getLine() + 1));
             System.exit(1);
         }
         return currentPosition;

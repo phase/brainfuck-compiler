@@ -67,7 +67,7 @@ public class Subroutine
     {
         if (memoryPositions.length != variableNames.length)
         {
-            System.out.println("Invalid number of arguments at " + lineNumber);
+            System.err.println("Invalid number of arguments at " + lineNumber);
             System.exit(1);
         }
         for (int i = 0; i < memoryPositions.length; i++)

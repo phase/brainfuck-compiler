@@ -35,7 +35,7 @@ public class OutStatement extends Statement
     {
         if ((expression instanceof SubNode) && (((SubNode) expression).getType() == SubNode.SUB))
         {
-            System.out.println("Cannot use sub in an out statement on line " + lineNumber);
+            System.err.println("Cannot use sub in an out statement on line " + lineNumber);
             System.exit(1);
         }
         int p = expression.generateBF();

@@ -28,12 +28,12 @@ public class WhileStatement extends Statement
         expression = ExpressionGenerator.generateExpression(l.getLine().substring(6), l.getLineNumber(), parentBlock);
         if (expression instanceof AssignmentOperator)
         {
-            System.out.println("Cannot assign a value to a variable on line " + l.getLineNumber());
+            System.err.println("Cannot assign a value to a variable on line " + l.getLineNumber());
             System.exit(1);
         }
         if ((expression instanceof SubNode) && (((SubNode) expression).getType() == SubNode.SUB))
         {
-            System.out.println("Cannot use a sub in a while statement on line " + l.getLineNumber());
+            System.err.println("Cannot use a sub in a while statement on line " + l.getLineNumber());
             System.exit(1);
         }
         currentPosition++;
@@ -49,16 +49,16 @@ public class WhileStatement extends Statement
                     currentPosition++;
                 } else
                 {
-                    System.out.println("Invalid indent level at line " + (i.getIndentLevel() + 1));
+                    System.err.println("Invalid indent level at line " + (i.getIndentLevel() + 1));
                 }
             } else
             {
-                System.out.println("Expected code block at line " + (l.getLine() + 1));
+                System.err.println("Expected code block at line " + (l.getLine() + 1));
                 System.exit(1);
             }
         } else
         {
-            System.out.println("Expected code block at line " + (l.getLine() + 1));
+            System.err.println("Expected code block at line " + (l.getLine() + 1));
             System.exit(1);
         }
         return currentPosition;

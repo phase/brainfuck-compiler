@@ -22,7 +22,7 @@ public class SubStatement extends Statement
         int openParen = line.indexOf('(');
         if ((openParen == -1) && (line.indexOf(')') != (line.length() - 1)))
         {
-            System.out.println("Invalid sub declaration at line " + l.getLineNumber());
+            System.err.println("Invalid sub declaration at line " + l.getLineNumber());
             System.exit(1);
         }
         String name = line.substring(0, openParen);
@@ -37,21 +37,21 @@ public class SubStatement extends Statement
             variableNames[i] = variableNames[i].trim();
             if ((!Statement.isValidVariableName(variableNames[i])) || (!variableNames[i].matches("[_a-zA-Z][_0-9a-zA-Z]*")))
             {
-                System.out.println("Invalid variable name \"" + variableNames[i] + "\" at line " + lineNumber);
+                System.err.println("Invalid variable name \"" + variableNames[i] + "\" at line " + lineNumber);
                 System.exit(1);
             }
         }
         currentPosition++;
         if (currentPosition >= items.size())
         {
-            System.out.println("Expected code block at line " + (l.getLineNumber() + 1));
+            System.err.println("Expected code block at line " + (l.getLineNumber() + 1));
             System.exit(1);
         }
         Item item = items.get(currentPosition);
         currentPosition++;
         if (!(item instanceof Block))
         {
-            System.out.println("Expected code block at line " + (l.getLineNumber() + 1));
+            System.err.println("Expected code block at line " + (l.getLineNumber() + 1));
             System.exit(1);
         }
         ((Block) item).generateStatements();
@@ -64,7 +64,7 @@ public class SubStatement extends Statement
     {
         if (subNameExists())
         {
-            System.out.println("Double declaration of subroutine/function at line " + lineNumber);
+            System.err.println("Double declaration of subroutine/function at line " + lineNumber);
             System.exit(1);
         }
         sub.setExternalAccessibleVariables(parentBlock.getVariableScope(), parentBlock.getArrayScope(), parentBlock.getSubScope(), parentBlock.getFuncScope());

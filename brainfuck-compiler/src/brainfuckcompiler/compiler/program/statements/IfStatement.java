@@ -30,12 +30,12 @@ public class IfStatement extends Statement
         expression = ExpressionGenerator.generateExpression(l.getLine().substring(l.getLine().startsWith("if ") ? 3 : 7), l.getLineNumber(), parentBlock);
         if (expression instanceof AssignmentOperator)
         {
-            System.out.println("Cannot assign a value to a variable on line " + l.getLineNumber());
+            System.err.println("Cannot assign a value to a variable on line " + l.getLineNumber());
             System.exit(1);
         }
         if ((expression instanceof SubNode) && (((SubNode) expression).getType() == SubNode.SUB))
         {
-            System.out.println("Cannot use a sub in an if statement on line " + l.getLineNumber());
+            System.err.println("Cannot use a sub in an if statement on line " + l.getLineNumber());
             System.exit(1);
         }
         currentPosition++;
@@ -50,17 +50,17 @@ public class IfStatement extends Statement
                     ifBlock.generateStatements();
                 } else
                 {
-                    System.out.println("Invalid indent level at line " + i.getLineNumber());
+                    System.err.println("Invalid indent level at line " + i.getLineNumber());
                     System.exit(1);
                 }
             } else
             {
-                System.out.println("Expected code block at line " + (l.getLineNumber() + 1));
+                System.err.println("Expected code block at line " + (l.getLineNumber() + 1));
                 System.exit(1);
             }
         } else
         {
-            System.out.println("Expected code block at line " + (l.getLineNumber() + 1));
+            System.err.println("Expected code block at line " + (l.getLineNumber() + 1));
             System.exit(1);
         }
         currentPosition++;
@@ -85,15 +85,15 @@ public class IfStatement extends Statement
                                 currentPosition++;
                             } else
                             {
-                                System.out.println("Invalid indent level at line " + eb.getLineNumber());
+                                System.err.println("Invalid indent level at line " + eb.getLineNumber());
                             }
                         } else
                         {
-                            System.out.println("Expected code block at line " + (elseLine.getLineNumber() + 1));
+                            System.err.println("Expected code block at line " + (elseLine.getLineNumber() + 1));
                         }
                     } else
                     {
-                        System.out.println("Expected code block at line " + (elseLine.getLineNumber() + 1));
+                        System.err.println("Expected code block at line " + (elseLine.getLineNumber() + 1));
                     }
                 } else if (elseLine.getLine().startsWith("elseif "))
                 {
