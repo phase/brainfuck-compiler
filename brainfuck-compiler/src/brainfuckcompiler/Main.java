@@ -116,15 +116,15 @@ public class Main
 
 	private static void output8Bit(String s)
 	{
-		for (int i = 0; i < s.length(); i++)
+		int amt = s.length() / 80;
+		for (int i = 0; i < amt; i++)
 		{
-			if (i > 0 && (i % 80 == 0))
-			{
-				System.out.println();
-			}
-			System.out.print(s.charAt(i));
+			System.out.println(s.substring(i * 80, (i + 1) * 80));
 		}
-		System.out.println();
+		if ((amt * 80) < s.length())
+		{
+			System.out.println(s.substring(amt * 80));
+		}
 	}
 
 	private static void output16Bit(String s)

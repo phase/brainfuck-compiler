@@ -1,9 +1,9 @@
 package brainfuckcompiler.compiler.program.statements;
 
-import brainfuckcompiler.compiler.program.structure.Statement;
 import brainfuckcompiler.compiler.expressions.Node;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.compiler.program.structure.Item;
+import brainfuckcompiler.compiler.program.structure.Statement;
 import brainfuckcompiler.statics;
 import java.util.ArrayList;
 
