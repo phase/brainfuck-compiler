@@ -1,11 +1,11 @@
 package brainfuckcompiler.compiler.program.statements;
 
-import brainfuckcompiler.compiler.program.structure.Statement;
 import brainfuckcompiler.compiler.program.Array;
 import brainfuckcompiler.compiler.program.Variable;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.compiler.program.structure.Item;
 import brainfuckcompiler.compiler.program.structure.Line;
+import brainfuckcompiler.compiler.program.structure.Statement;
 import brainfuckcompiler.statics;
 import java.util.ArrayList;
 

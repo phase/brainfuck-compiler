@@ -1,10 +1,10 @@
 package brainfuckcompiler.compiler.program.statements;
 
-import brainfuckcompiler.compiler.program.structure.Statement;
 import brainfuckcompiler.code.strings.StringTools;
 import brainfuckcompiler.compiler.program.structure.Block;
 import brainfuckcompiler.compiler.program.structure.Item;
 import brainfuckcompiler.compiler.program.structure.Line;
+import brainfuckcompiler.compiler.program.structure.Statement;
 import java.util.ArrayList;
 
 public class OutsStatement extends Statement
